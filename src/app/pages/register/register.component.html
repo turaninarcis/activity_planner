@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center align-items-center">
+    
+    <div *ngIf="backendErrors.length > 0" class="alert alert-danger">
+        <ul class="mb-0">
+          <li *ngFor="let error of backendErrors">{{ error }}</li>
+        </ul>
+      </div>
+    <form [formGroup]="registerForm" class="w-sm-75 w-md-50 w-lg-25 p-4 border rounded shadow bg-white" (ngSubmit)="onSubmit()" novalidate>
+        <h1>Register</h1>
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input id="username" type="text" class="form-control" 
+                 [class.is-invalid]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+                 formControlName="username" />
+                 <app-form-validation-error
+                 [control]="registerForm.get('username')"/>
+        </div>
+      
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input id="email" type="email" class="form-control" 
+                 [class.is-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+                 formControlName="email" />
+          <div class="invalid-feedback" *ngIf="registerForm.get('email')?.errors?.['required']">
+            Email is required.
+          </div>
+          <div class="invalid-feedback" *ngIf="registerForm.get('email')?.errors?.['email']">
+            Email format is invalid.
+          </div>
+        </div>
+      
+        <!-- Password -->
+        <div class="mb-3 position-relative">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+              <input [type]="showPassword ? 'text' : 'password'" 
+                     id="password" 
+                     class="form-control"
+                     formControlName="password"
+                     [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" />
+          
+              <button type="button" class="btn btn-outline-secondary" (click)="showPassword = !showPassword">
+                <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+            <app-form-validation-error
+                [control]="registerForm.get('password')"
+                patternMessage="Password must contain uppercase, lowercase and a number"
+            />
+          </div>
+      
+        <!-- Confirm Password -->
+        <div class="mb-3 position-relative">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <div class="input-group">
+              <input [type]="showConfirmPassword ? 'text' : 'password'" 
+                     id="confirmPassword" 
+                     class="form-control"
+                     formControlName="confirmPassword"
+                     [class.is-invalid]="(registerForm.get('confirmPassword')?.touched && registerForm.hasError('passwordsMismatch'))" />
+          
+              <button type="button" class="btn btn-outline-secondary" (click)="showConfirmPassword = !showConfirmPassword">
+                <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+            <div class="invalid-feedback" *ngIf="registerForm.hasError('passwordsMismatch') && registerForm.get('confirmPassword')?.touched">
+              Passwords do not match.
+            </div>
+          </div>
+      
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+        <p>Already have an account? <a routerLink="/login" >Sign in</a></p>
+      </form>
+</div>
+
+  

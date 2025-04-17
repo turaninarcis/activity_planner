@@ -1,0 +1,14 @@
+<a class="card shadow-sm mb-3 text-decoration-none text-dark" [routerLink]="['/activity',id]">
+    <div class="card-body">
+      <h5 class="card-title">{{ name }}</h5>
+      <p class="card-text text-muted">
+        Start Date:
+        <span *ngIf="startDate; else noDate">
+          {{ startDate | date: 'mediumDate' }}
+        </span>
+        <ng-template #noDate>
+          <em>Not set</em>
+        </ng-template>
+      </p>
+    </div>
+</a>

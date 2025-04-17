@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center align-items-center flex-column">
+    <form [formGroup]="loginForm" class="w-sm-75 w-md-50 w-lg-25 p-4 border rounded shadow bg-white" (ngSubmit)="onSubmit()" novalidate>
+        <h1>Login</h1>
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input id="username" type="text" class="form-control" 
+                 [class.is-invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+                 formControlName="username" />
+        </div>
+  
+        <!-- Password -->
+        <div class="mb-3 position-relative">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+              <input [type]="showPassword ? 'text' : 'password'" 
+                     id="password" 
+                     class="form-control"
+                     formControlName="password"
+                     [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" />
+          
+              <button type="button" class="btn btn-outline-secondary" (click)="showPassword = !showPassword">
+                <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+          </div>
+      
+        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+
+        <div *ngIf="backendErrors.length > 0" class="alert alert-danger m-4">
+            <ul class="mb-0">
+              <li *ngFor="let error of backendErrors">{{ error }}</li>
+            </ul>
+        </div>
+        <p>You don't have an acoun yet? <a routerLink="/register">Sign up</a></p>
+      </form>
+      
+</div>
+
+  

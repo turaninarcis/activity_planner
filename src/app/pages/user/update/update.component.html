@@ -1,0 +1,70 @@
+<form [formGroup]="userUpdateForm" class="details-container bg-light p-4 rounded shadow-sm" (ngSubmit)="onSubmit()">
+    <h2>Update</h2>
+    <hr/>
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input id="username" type="text" class="form-control" 
+               [class.is-invalid]="userUpdateForm.get('username')?.invalid && userUpdateForm.get('username')?.touched"
+               formControlName="username" />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" type="email" class="form-control" 
+               [class.is-invalid]="userUpdateForm.get('email')?.invalid && userUpdateForm.get('email')?.touched"
+               formControlName="email" />
+      </div>
+
+    <div class="mb-3 position-relative">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group">
+          <input [type]="showPassword ? 'text' : 'password'" 
+                 id="password" 
+                 class="form-control"
+                 formControlName="password"
+                 [class.is-invalid]="userUpdateForm.get('password')?.invalid && userUpdateForm.get('password')?.touched" />
+      
+          <button type="button" class="btn btn-outline-secondary" (click)="showPassword = !showPassword">
+            <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+          </button>
+        </div>
+        <app-form-validation-error
+            [control]="userUpdateForm.get('password')"
+            patternMessage="Password must contain uppercase, lowercase and a number"
+        />
+    </div>
+
+
+    <div class="mt-5">
+        <button (click)="showChangePassword = !showChangePassword" type="button" class="btn btn-secondary">Change password</button>
+        <div class="mb-3 position-relative" *ngIf="showChangePassword">
+            <label for="newPassword" class="form-label">New Password</label>
+            <div class="input-group">
+              <input [type]="showUpdatePassword ? 'text' : 'password'" 
+                     id="newPassword" 
+                     class="form-control"
+                     formControlName="newPassword"
+                     [class.is-invalid]="userUpdateForm.get('newPassword')?.invalid && userUpdateForm.get('newPassword')?.touched" />
+          
+              <button type="button" class="btn btn-outline-secondary" (click)="showUpdatePassword = !showUpdatePassword">
+                <i class="bi" [ngClass]="showUpdatePassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+            <app-form-validation-error
+                [control]="userUpdateForm.get('newPassword')"
+                patternMessage="Password must contain uppercase, lowercase and a number"
+            />
+        </div>
+    </div>
+    <div *ngIf="backendErrors.length > 0" class="alert alert-danger m-4">
+        <ul class="mb-0">
+          <li *ngFor="let error of backendErrors">{{ error }}</li>
+        </ul>
+    </div>
+    <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-secondary" type="button" routerLink="/user">Back</button>
+        <button class="btn btn-primary" type="submit">Update</button>
+
+      </div>
+</form>
+
