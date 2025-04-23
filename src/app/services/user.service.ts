@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DetailsPayload } from '../../Models/details-payload.model';
 import { UserUpdatePayload } from '../../Models/user-update-payload.model';
+import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,5 +25,11 @@ export class UserService {
     console.log('Hit update');
       return this.http.patch<UserUpdatePayload>(`${this.apiUrl}`,updatePayload);
 }
+  public getCurrentUsername():string | null {
+    const token = localStorage.getItem('jwt_token');
+    if(!token) return null;
+    const decodedToken:any = jwtDecode(token);
+    return decodedToken.sub || null;
+  }
 
 }

@@ -1,1 +1,11 @@
-<p>activity works!</p>
+<div class="container d-flex w-100 flex-column align-items-center justify-content-center min-vh-100 p-4">
+    <!-- Title Section -->
+    <h1 class="text-center mb-4">
+        {{ activityDetails?.name === null ? "Loading..." : activityDetails.name }}
+    </h1>
+
+    <!-- Main Content Section -->
+    <div class="w-100">
+        <router-outlet></router-outlet>
+    </div>
+</div>

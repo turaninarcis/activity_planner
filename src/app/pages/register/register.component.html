@@ -11,6 +11,7 @@
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
           <input id="username" type="text" class="form-control" 
+                 [maxlength]="24"
                  [class.is-invalid]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
                  formControlName="username" />
                  <app-form-validation-error
@@ -39,6 +40,7 @@
                      id="password" 
                      class="form-control"
                      formControlName="password"
+                     [maxlength]="30"
                      [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" />
           
               <button type="button" class="btn btn-outline-secondary" (click)="showPassword = !showPassword">
@@ -59,6 +61,7 @@
                      id="confirmPassword" 
                      class="form-control"
                      formControlName="confirmPassword"
+                     [maxlength]="30"
                      [class.is-invalid]="(registerForm.get('confirmPassword')?.touched && registerForm.hasError('passwordsMismatch'))" />
           
               <button type="button" class="btn btn-outline-secondary" (click)="showConfirmPassword = !showConfirmPassword">

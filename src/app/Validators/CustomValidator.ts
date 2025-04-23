@@ -1,7 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 export class CustomValidators {
-
+    
     static username(){
         return ['', [Validators.required, Validators.minLength(3), Validators.maxLength(24)]];   
     }
@@ -14,6 +14,10 @@ export class CustomValidators {
     static newPassword() {
         return ['', [Validators.minLength(10), Validators.maxLength(30), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$")]];
      }
+    
+    static activityName(){
+      return ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]];
+    }
 
   static passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     const password = group.get('password')?.value;

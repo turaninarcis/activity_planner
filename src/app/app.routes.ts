@@ -10,7 +10,9 @@ import { UserComponent } from './pages/user/user.component';
 import { DetailsComponent } from './pages/user/details/details.component';
 import { UpdateComponent } from './pages/user/update/update.component';
 import { ActivityComponent } from './pages/activity/activity.component';
-
+import { ActivityUpdateComponent } from './pages/activity/update/update.component';
+import { ActivityDetailsComponent } from './pages/activity/activity-details/activity-details.component';
+import { CreateActivityComponent } from './pages/create-activity/create-activity.component';
 
 export const routes: Routes = [
     {path:'register', component: RegisterComponent, canActivate: [guestGuard]},
@@ -38,8 +40,11 @@ export const routes: Routes = [
         component: ActivityComponent, 
         canActivate: [authGuard], 
         children:[
+            {path:"", component: ActivityDetailsComponent},
+            {path:"edit", component: ActivityUpdateComponent},
         ]
     },
+    {path:'create-activity', component: CreateActivityComponent},
     {path:'', redirectTo:'login', pathMatch: 'full'},
     {path: '**', redirectTo:'login'}
 ];

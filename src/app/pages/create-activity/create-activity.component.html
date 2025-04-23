@@ -1,0 +1,62 @@
+<form (ngSubmit)="createActivity()" #activityForm="ngForm" class="container mt-4">
+
+    <!-- Activity Name -->
+    <div class="mb-3">
+      <label for="activityName" class="form-label">Activity Name</label>
+      <input
+        type="text"
+        id="activityName"
+        class="form-control"
+        name="activityName"
+        [(ngModel)]="activityDetails.name"
+        [maxlength]="50"
+        required
+      />
+    </div>
+  
+    <!-- Activity Details -->
+    <div class="mb-3">
+      <label for="activityDetails" class="form-label">Description</label>
+      <textarea
+        id="activityDetails"
+        class="form-control"
+        name="activityDetails"
+        rows="3"
+        [maxlength]="254"
+        [(ngModel)]="activityDetails.description"
+      ></textarea>
+    </div>
+  
+    <!-- Start Date -->
+    <div class="mb-3">
+      <label for="startDate" class="form-label">Start Date</label>
+      <input
+        type="datetime-local"
+        id="startDate"
+        class="form-control"
+        name="startDate"
+        [(ngModel)]="activityDetails.startDate"
+        [min]="minDate"
+      />
+    </div>
+  
+    <!-- End Date -->
+    <div class="mb-3">
+      <label for="endDate" class="form-label">End Date</label>
+      <input
+        type="datetime-local"
+        id="endDate"
+        class="form-control"
+        name="endDate"
+        [(ngModel)]="activityDetails.endDate"
+        [min]="activityDetails.startDate || minDate"
+      />
+    </div>
+    
+    <!-- Update Buttons -->
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary">Create Activity</button>
+    </div>
+
+
+  </form>

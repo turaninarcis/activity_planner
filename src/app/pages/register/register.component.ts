@@ -53,9 +53,9 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error('Registration error:', err);
-        if (err.error && typeof err.error.error === 'string') {
+        if (err.error && typeof err.error.message === 'string') {
           // Split error message string by comma
-          this.backendErrors = err.error.error.split(',').map((e:string) => e.trim());
+          this.backendErrors = err.error.message.split(',').map((e:string) => e.trim());
         } else {
           this.backendErrors = ['An unknown error occurred.'];
         }
