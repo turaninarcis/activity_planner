@@ -1,0 +1,133 @@
+<div class="container w-100 mb-4 d-flex flex-column align-content-center justify-content-center">
+    <h1 class="text-center mb-4">
+        {{ groupDetails?.name === null ? "Loading..." : groupDetails.name }}
+    </h1>
+ 
+  
+    <!-- Description Section -->
+    <div class="mb-3">
+      <p class="mb-0">
+        {{ groupDetails?.description !== null ? groupDetails.description : "No description provided yet" }}
+      </p>
+    </div>
+  
+    <!-- Dates Section -->
+    <div class="mb-4">
+      <p><strong>Date of Creation:</strong> {{ groupDetails?.creationDate | date: 'dd.MM.yyyy HH:mm' }}</p>
+      <p><strong>Last Modification:</strong> {{ groupDetails?.lastUpdate | date: 'dd.MM.yyyy HH:mm' }}</p>
+    </div>
+
+       <!-- Invite Token Section -->
+       <div class="d-flex justify-content-between align-items-center mb-3">
+        <p class="text-truncate mb-0">{{ groupDetails?.inviteToken }}</p>
+        <button class="btn btn-outline-primary" (click)="copyText(groupDetails?.inviteToken)">
+          Copy Token
+        </button>
+      </div>
+    <div class="d-flex align-content-center justify-content-center">
+        <button *ngIf="canModifyGroup()" class="btn btn-primary" routerLink="edit">Edit</button>
+        <button (click)="openLeaveGroupModal()" class="btn btn-outline-danger"> Leave </button>
+    </div>
+    <!-- Members Section -->
+    <hr>
+    <h2>Members</h2>
+    <div class="text-end mb-3" *ngIf="canModifyGroup()">
+        <button class="btn btn-outline-primary" (click)="toggleEditRoles()">
+          {{ editRoles ? 'Done' : 'Edit Roles' }}
+        </button>
+      </div>
+    <div *ngIf="groupDetails">
+    <div *ngFor="let member of groupDetails.groupMembers" class="mb-3">
+        <div class="card shadow-sm">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <span class="fw-bold">{{ member.username }}</span>
+            <div>
+                <ng-container *ngIf="editRoles && this.canUpdateMember(member); else staticRole">
+                  <select class="form-select form-select-sm"
+                          [(ngModel)]="member.role"
+                          (change)="onRoleChange(member)"
+                          style="min-width: 150px;">
+                    <option *ngFor="let role of availableRoles" [value]="role">{{ role }}</option>
+                  </select>
+                </ng-container>
+                <ng-template #staticRole>
+                  <span class="badge bg-secondary">{{ member.role }}</span>
+                </ng-template>
+            </div>
+            
+            <!-- Conditionally display the Kick button if the logged-in user is an admin and the member is not the logged-in user -->
+            <button *ngIf="canUpdateMember(member)" class="btn btn-danger btn-sm" (click)="openKickModal(member)">
+            Kick
+            </button>
+        </div>
+        </div>
+    </div>
+    </div>
+  
+    <div
+  class="modal fade"
+  id="leaveGroupModal"
+  tabindex="-1"
+  aria-labelledby="leaveGroupModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-warning text-dark">
+        <h5 class="modal-title" id="leaveGroupModalLabel">Leave Group</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to leave this group? You will no longer be able to view or participate in it.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-warning" (click)="leaveGroup()">
+          Confirm Leave
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="kickMemberModal"
+  tabindex="-1"
+  aria-labelledby="kickMemberModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="kickMemberModalLabel">Kick Member</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to remove <strong>{{ selectedMember?.username }}</strong> from this group?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-danger" (click)="kickMember()">
+          Confirm Kick
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+  

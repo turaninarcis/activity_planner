@@ -11,28 +11,44 @@ import { CommonModule } from '@angular/common';
 export class ActivityComponent implements OnInit{
   id!: string | null;
   activityDetails:any;
+  checkDone = false;
   constructor(private route: ActivatedRoute,
     private activityService: ActivityService,
     private router:Router
   ){}
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.activityService.getIsUserPartOfActivity(this.id ? this.id : "").subscribe({
+    if (!this.id) {
+      this.router.navigate(['/home/activities']);
+      return;
+    }
+
+    this.activityService.getIsUserPartOfActivity(this.id).subscribe({
       next: (data) => {
         if (!data.joined) {
-          this.router.navigate(['/']); // assuming '/' is your home page
+          this.router.navigate(['/home/activities']); // assuming '/' is your home page
+          return;
         }
+
+        this.activityService.getActivityDetails(this.id).subscribe({
+          next:(data)=>{
+            this.activityDetails = data.activityDetails;
+            this.checkDone = true;
+          },
+          error:(err)=>{
+            this.router.navigate(['/home/activities']); // optionally handle failure too
+            return;
+          }
+        });
+
       },
       error: (err) => {
-        console.error('Error checking activity participation:', err);
-        this.router.navigate(['/']); // optionally handle failure too
+        this.router.navigate(['/home/activities']); // optionally handle failure too
+        return;
       }
     });
 
 
-    this.activityService.getActivityDetails(this.id).subscribe(data => this.activityDetails = data.activityDetails);
-
-
-    console.log('Activity id:', this.id)
+  
   }
 }

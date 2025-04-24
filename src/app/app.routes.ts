@@ -13,6 +13,10 @@ import { ActivityComponent } from './pages/activity/activity.component';
 import { ActivityUpdateComponent } from './pages/activity/update/update.component';
 import { ActivityDetailsComponent } from './pages/activity/activity-details/activity-details.component';
 import { CreateActivityComponent } from './pages/create-activity/create-activity.component';
+import { GroupComponent } from './pages/group/group.component';
+import { GroupDetailsComponent } from './pages/group/group-details/group-details.component';
+import { GroupUpdateComponent } from './pages/group/group-update/group-update.component';
+import { CreateGroupComponent } from './pages/create-group/create-group.component';
 
 export const routes: Routes = [
     {path:'register', component: RegisterComponent, canActivate: [guestGuard]},
@@ -44,7 +48,16 @@ export const routes: Routes = [
             {path:"edit", component: ActivityUpdateComponent},
         ]
     },
+    {   path:'group/:id',
+        component: GroupComponent,
+        canActivate: [authGuard],
+        children:[
+            {path:"", component: GroupDetailsComponent},
+            {path:"edit", component: GroupUpdateComponent},
+        ]
+    },
     {path:'create-activity', component: CreateActivityComponent},
+    {path:'create-group', component: CreateGroupComponent},
     {path:'', redirectTo:'login', pathMatch: 'full'},
     {path: '**', redirectTo:'login'}
 ];

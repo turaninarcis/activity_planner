@@ -1,15 +1,6 @@
-<div class="container w-50 mb-4">
-    <!-- Invite Token Section -->
-    <div class="d-flex justify-content-between align-items-center">
-        <p class="text-truncate">{{ activityDetails?.inviteToken }}</p>
-        <button class="btn btn-outline-primary" (click)="copyText(activityDetails?.inviteToken)">
-            Copy Token
-        </button>
-        <button class="btn btn-warning" (click)="changeUserConfirmation()">
-            {{getUserConfirmation()===false ? "Confirm" : "Unconfirm"}}
-        </button>
-    </div>
-</div>
+<h1 class="text-center mb-4">
+  {{ activityDetails?.name === null ? "Loading..." : activityDetails.name }}
+</h1>
 
 <!-- Description Section -->
 <div class="container mb-4">
@@ -29,6 +20,19 @@
     <br>
     <span><strong>End Date:</strong> {{ activityDetails?.endDate === null ? "Not set yet" : activityDetails.endDate | date: 'dd.MM.yyyy HH:mm' }}</span>
 </div>
+<div class="container w-100 mb-4">
+  <!-- Invite Token Section -->
+  <div class="d-flex justify-content-between align-items-center">
+      <button class="btn btn-warning" (click)="changeUserConfirmation()">
+        {{getUserConfirmation()===false ? "Confirm" : "Unconfirm"}}
+      </button>
+      <p class="text-truncate">{{ activityDetails?.inviteToken }}</p>
+      <button class="btn btn-outline-primary" (click)="copyText(activityDetails?.inviteToken)">
+          Copy Token
+      </button>
+  
+  </div>
+</div>
 
 <!-- Edit Button -->
 <div class="container d-flex">
@@ -43,11 +47,25 @@
 <hr>
 
 <!-- Tasks Section -->
-<h3 class="mb-4">Tasks</h3>
+ <div class="d-flex align-content-between w-100 justify-content-between mb-3">
+  <h3 class="mb-4">Tasks</h3>
+  <button
+    *ngIf="canModifyActivity()"
+    type="button"
+    class="btn btn-primary"
+    (click)="openCreateTaskModal()">
+    Create Task
+  </button>
+ </div>
+
 <div *ngFor="let task of activityDetails?.tasks" class="mb-4">
     <div class="card shadow-sm">
         <div class="card-body">
-            <h5 class="card-title">{{ task.name }}</h5>
+            <div class="d-flex justify-content-between">       
+              <h5 class="card-title">{{ task.name }}</h5>
+              
+            </div>
+
             <p class="card-text text-muted">{{ task.description }}</p>
 
             <!-- Assigned Users Section -->
@@ -58,6 +76,26 @@
                     <span class="badge" [ngClass]="{'bg-success': assignment.completed, 'bg-warning': !assignment.completed}">{{ assignment.completed ? 'Completed' : 'Pending' }}</span>
                 </div>
             </div>
+
+            <div class="d-flex justify-content-between mb-2">
+              <button
+              [ngClass]="{
+                'btn': true,
+                'btn-success': !checkTaskAssignment(task),
+                'btn-warning': checkTaskAssignment(task)
+              }"
+               (click)="checkTaskAssignment(task) ? unassignYourself(task) : assignYourself(task)">
+                {{ checkTaskAssignment(task) ? 'Unassign yourself' : 'Assign yourself' }}
+              </button>
+              <button *ngIf="checkTaskAssignment(task)" class="btn btn-outline-success" (click)="changeAssignStatus(task)">Change status</button>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button *ngIf="canModifyActivity()" class="btn btn-primary" (click)="openUpdateTaskModal(task)">Edit task</button>
+              <button *ngIf="canModifyActivity()" class="btn btn-outline-danger" (click)="openDeleteTaskModal(task)">Delete task</button>
+            </div>
+          
+            
         </div>
     </div>
 </div>
@@ -65,20 +103,58 @@
 <hr>
 
 <!-- Users Section -->
-<h3 class="mb-4">Users</h3>
+ <div class="d-flex justify-content-between">
+  <h3 class="mb-4">Users</h3>
+  <div class="text-end mb-3" *ngIf="canModifyActivity()">
+    <button class="btn btn-outline-primary" (click)="toggleEditRoles()">
+      {{ editRoles ? 'Done' : 'Edit Roles' }}
+    </button>
+  </div>
+ </div>
+
 <div *ngFor="let member of activityDetails?.members" class="mb-3">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-                <span class="font-weight-bold">{{ member.username }}</span>
-                <span class="text-muted">{{ member.role }}</span>
-                <span class="badge {{ member.confirmed ? 'bg-success' : 'bg-warning' }}">
-                    {{ member.confirmed ? 'Confirmed' : 'Not Confirmed' }}
-                </span>
-                <button class="btn btn-danger" *ngIf="canModifyActivity() && getLoggedUser() != member.username" (click)="openKickModal(member)">Kick</button>
-            </div>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+        <!-- Username -->
+        <div class="flex-grow-1">
+          <span class="fw-bold fs-5">{{ member.username }}</span>
         </div>
+
+        <!-- Role or dropdown -->
+        <div>
+          <ng-container *ngIf="editRoles && getLoggedUser() !== member.username&&member.role!=='CREATOR'; else staticRole">
+            <select class="form-select form-select-sm"
+                    [(ngModel)]="member.role"
+                    (change)="onRoleChange(member)"
+                    style="min-width: 150px;">
+              <option *ngFor="let role of availableRoles" [value]="role">{{ role }}</option>
+            </select>
+          </ng-container>
+          <ng-template #staticRole>
+            <span class="badge bg-secondary">{{ member.role }}</span>
+          </ng-template>
+        </div>
+
+        <!-- Confirmation badge -->
+        <div>
+          <span class="badge" 
+                [ngClass]="member.confirmed ? 'bg-success' : 'bg-warning text-dark'">
+            {{ member.confirmed ? 'Confirmed' : 'Not Confirmed' }}
+          </span>
+        </div>
+
+        <!-- Kick button -->
+        <div *ngIf="canModifyActivity() && getLoggedUser() !== member.username">
+          <button class="btn btn-sm btn-outline-danger" (click)="openKickModal(member)">
+            Kick
+          </button>
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>
 
 
@@ -147,3 +223,174 @@
     </div>
   </div>
 </div>
+
+
+<div
+  class="modal fade"
+  id="deleteTaskModal"
+  tabindex="-1"
+  aria-labelledby="deleteTaskModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="deleteTaskModalLabel">Delete task</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete <strong>{{ selectedTask.name }}</strong> from this activity?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-danger" (click)="deleteTask()">
+          Confirm Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div
+  class="modal fade"
+  id="createTaskModal"
+  tabindex="-1"
+  aria-labelledby="createTaskModalLabel"
+  aria-hidden="true"
+  #createTaskModal
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #taskForm="ngForm" (ngSubmit)="createTask()" novalidate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="createTaskModalLabel">Create Task</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Task Name (Required) -->
+          <div class="mb-3">
+            <label for="taskName" class="form-label">Task Name *</label>
+            <input
+              type="text"
+              id="taskName"
+              name="taskName"
+              class="form-control"
+              required
+              [(ngModel)]="newTask.name"
+              [minlength]="2"
+              [maxlength]="50"
+              #taskName="ngModel"
+            />
+            <div class="text-danger" *ngIf="taskName.invalid && taskName.touched">
+              Task name is required.
+            </div>
+          </div>
+
+          <!-- Description (Optional) -->
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              class="form-control"
+              rows="3"
+              [maxlength]="254"
+              [(ngModel)]="newTask.description"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="taskForm.invalid"
+          >
+            Create Task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<div
+  class="modal fade"
+  id="updateTaskModal"
+  tabindex="-1"
+  aria-labelledby="createTaskModalLabel"
+  aria-hidden="true"
+  #createTaskModal
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #updateTaskForm="ngForm" (ngSubmit)="updateTask()" novalidate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateTaskModalLabel">Edit Task</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Task Name (Required) -->
+          <div class="mb-3">
+            <label for="updateTaskName" class="form-label">Task Name *</label>
+            <input
+              type="text"
+              id="updateTaskName"
+              name="updateTaskName"
+              class="form-control"
+              required
+              [(ngModel)]="selectedTask.name"
+              [minlength]="2"
+              [maxlength]="50"
+              #updateTaskName="ngModel"
+            />
+            <div class="text-danger" *ngIf="updateTaskName.invalid && updateTaskName.touched">
+              Task name is required.
+            </div>
+          </div>
+
+          <!-- Description (Optional) -->
+          <div class="mb-3">
+            <label for="updateDescription" class="form-label">Description</label>
+            <textarea
+              id="updateDescription"
+              name="updateDescription"
+              class="form-control"
+              rows="3"
+              [maxlength]="254"
+              [(ngModel)]="selectedTask.description"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="updateTaskForm.invalid"
+          >
+            Update Task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+

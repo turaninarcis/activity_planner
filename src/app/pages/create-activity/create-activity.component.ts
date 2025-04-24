@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ActivityService } from '../../services/activities.service';
+import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-create-activity',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './create-activity.component.html',
   styleUrl: './create-activity.component.scss'
 })
 export class CreateActivityComponent implements OnInit {
   constructor(
-    private activityService:ActivityService
+    private activityService:ActivityService,
+    private router:Router
   ){
 
   }
@@ -25,6 +27,11 @@ export class CreateActivityComponent implements OnInit {
   }
   minDate:string="";
   createActivity() {
-    this.activityService.createActivity(this.activityDetails).subscribe(data => console.log(data));
+    this.activityService.createActivity(this.activityDetails).subscribe({
+      next:(data)=>{
+        this.router.navigate(['/home/activities']);
+      }
+    });
+    
   }
 }

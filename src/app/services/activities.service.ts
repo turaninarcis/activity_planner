@@ -59,4 +59,28 @@ export class ActivityService {
   public changeConfirmation(activityId:string|null){
     return this.http.patch(`${this.apiUrl}/${activityId}/confirmation`,{});
   }
+
+  public createTask(activityId:string | null, payload:any):Observable<any>{
+    return this.http.post(`${this.apiUrl}/${activityId}/tasks`,payload);
+  }
+  public updateTask( activityId:string |null, payload:any){
+    return this.http.patch(`${this.apiUrl}/${activityId}/tasks/${payload.id}`,payload);
+  }
+  public deleteTask( activityId:string |null, payload:any){
+    return this.http.delete(`${this.apiUrl}/${activityId}/tasks/${payload.id}`);
+  }
+
+  public createAssign( activityId:string | null, taskId){
+    return this.http.post(`${this.apiUrl}/${activityId}/tasks/${taskId}/assignment`,{});
+  }
+  public deleteAssign( activityId:string | null, taskId:string|null){
+    return this.http.delete(`${this.apiUrl}/${activityId}/tasks/${taskId}/assignment`,{});
+  }
+  public updateAssignStatus( activityId:string | null, taskId: string|null){
+    return this.http.patch(`${this.apiUrl}/${activityId}/tasks/${taskId}/assignment`,{});
+  }
+  public updateMemberRole(activityId:string | null, payload):Observable<any>{
+    return this.http.patch(`${this.apiUrl}/${activityId}/members`,payload);
+
+  }
 }

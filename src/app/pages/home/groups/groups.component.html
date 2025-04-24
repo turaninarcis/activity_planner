@@ -1,1 +1,53 @@
-<p>groups works!</p>
+<div class="container">
+    <div class="text-center my-4">
+        <button class="btn btn-primary" routerLink="/create-group">Create</button>
+
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#joinGroupModal">
+          Join
+        </button>
+      </div>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="joinGroupModal" tabindex="-1" aria-labelledby="joinGroupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            
+            <div class="modal-header">
+              <h5 class="modal-title" id="joinGroupModalLabel">Join a Group</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <form (ngSubmit)="joinGroup()" #joinForm="ngForm">
+              <div class="modal-body">
+
+                <div *ngIf="joinErrorMessage" class="alert alert-danger">
+                    {{ joinErrorMessage }}
+                  </div>
+
+                <div class="mb-3">
+                  <label for="inviteToken" class="form-label">Invite Token</label>
+                  <input
+                    type="text"
+                    id="inviteToken"
+                    class="form-control"
+                    name="inviteToken"
+                    [(ngModel)]="inviteToken"
+                    required
+                  />
+                </div>
+              </div>
+      
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!joinForm.form.valid">Join</button>
+              </div>
+            </form>
+      
+          </div>
+        </div>
+      </div>
+    <app-groups-card *ngFor="let group of groups" 
+     [name]="group.name"
+     [id]="group.id">
+    </app-groups-card>
+</div>
