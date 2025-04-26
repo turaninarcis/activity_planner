@@ -5,9 +5,10 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { UserService } from '../../../services/user.service';
 import {Modal} from 'bootstrap';
 import { FormsModule } from '@angular/forms';
+import { ChatComponent } from '../../../shared/chat/chat.component';
 @Component({
   selector: 'app-group-details',
-  imports: [CommonModule, NgFor,NgIf, RouterLink, FormsModule],
+  imports: [CommonModule, NgFor,NgIf, RouterLink, FormsModule, ChatComponent],
   templateUrl: './group-details.component.html',
   styleUrl: './group-details.component.scss'
 })
@@ -17,16 +18,17 @@ export class GroupDetailsComponent {
   selectedMember:any;
   editRoles:boolean = false;
   availableRoles = ['ADMINISTRATOR', 'MEMBER'];
-
+  pastMessages:any;
   constructor(
     private groupService:GroupsService,
     private activatedRoute:ActivatedRoute,
     private userService:UserService,
-    private router:Router
+    private router:Router,
   ){}
   
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id')!;
+
 
     this.groupService.getGroupDetails(this.id).subscribe({
       next:(data)=>{
@@ -34,6 +36,7 @@ export class GroupDetailsComponent {
         console.log(this.groupDetails);
       }
     });
+
   }
 
   copyText(value: string): void {

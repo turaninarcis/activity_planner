@@ -46,4 +46,8 @@ export class GroupsService {
     return this.http.patch<any>(`${this.apiUrl}/${groupId}/members`,payload);
 
   }
+
+  public getPastMessages(groupId:string):Observable<any>{
+    return this.http.get<any>(`http://localhost:8080/groups/${groupId}/messages`);
+  }
 }

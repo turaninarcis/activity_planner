@@ -1,0 +1,14 @@
+<div class="chat-box">
+    <h4 class="d-block chat-header">Chat</h4>
+    <div class="messages" #messagesContainer>
+      <div *ngFor="let msg of messages" class="message d-flex flex-column">
+        <span class="message-sender">{{ msg.senderName === loggedUser ? "You" : msg.senderName }}</span> 
+        <span class="message-content" [ngClass]="{'sender-message': loggedUser == msg.senderName, 'others-message': loggedUser!==msg.senderName}">{{ msg.content }}</span>
+        <span class="tooltip">{{ msg.sendDateTime | date:'HH:mm dd MMMM YYYY' }}</span>
+      </div>
+    </div>
+    <div class="input-group mt-2">
+      <input [(ngModel)]="message" [maxlength]="1000" (keyup.enter)="send()" class="form-control" placeholder="Type your message..." />
+      <button class="btn btn-primary" (click)="send()">Send</button>
+    </div>
+  </div>

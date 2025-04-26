@@ -37,11 +37,8 @@
 <!-- Edit Button -->
 <div class="container d-flex">
     <div class="container w-100 mt-5 text-center">
-
-      <button class="btn btn-secondary" routerLink="/home/activities">Back</button>
       <button class="btn btn-primary" *ngIf="canModifyActivity()" routerLink="edit">Edit</button>
       <button class="btn btn-outline-danger" (click)="openLeaveActivityModal()"  >Leave</button>
-
     </div>
   </div>
 <hr>

@@ -29,13 +29,19 @@
         <button (click)="openLeaveGroupModal()" class="btn btn-outline-danger"> Leave </button>
     </div>
     <!-- Members Section -->
+
+    <app-chat [groupId]="this.id"></app-chat>
+
     <hr>
-    <h2>Members</h2>
-    <div class="text-end mb-3" *ngIf="canModifyGroup()">
-        <button class="btn btn-outline-primary" (click)="toggleEditRoles()">
-          {{ editRoles ? 'Done' : 'Edit Roles' }}
-        </button>
-      </div>
+    <div class="d-flex justify-content-between">
+      <h2>Members</h2>
+      <div class="text-end mb-3" *ngIf="canModifyGroup()">
+          <button class="btn btn-outline-primary" (click)="toggleEditRoles()">
+            {{ editRoles ? 'Done' : 'Edit Roles' }}
+          </button>
+        </div>
+    </div>
+
     <div *ngIf="groupDetails">
     <div *ngFor="let member of groupDetails.groupMembers" class="mb-3">
         <div class="card shadow-sm">

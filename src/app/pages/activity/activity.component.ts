@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { ActivityService } from '../../services/activities.service';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from "../../shared/navbar/navbar.component";
 @Component({
   selector: 'app-activity',
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, NavbarComponent],
   templateUrl: './activity.component.html',
   styleUrl: './activity.component.scss'
 })

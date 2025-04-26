@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { GroupsService } from '../../services/groups.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { NavbarComponent } from "../../shared/navbar/navbar.component";
 
 @Component({
   selector: 'app-group',
-  imports: [RouterOutlet, NgIf],
+  imports: [RouterOutlet, NgIf, NavbarComponent],
   templateUrl: './group.component.html',
   styleUrl: './group.component.scss'
 })
