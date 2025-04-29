@@ -257,7 +257,10 @@ export class ActivityDetailsComponent implements OnInit{
       }
     });
   }
-
+  openCopyTokenModal() {  
+    const modal = new Modal(document.getElementById('copyTokenModal')!);
+    modal.show();
+  }
   toggleEditRoles() {
     this.editRoles = !this.editRoles;
   }

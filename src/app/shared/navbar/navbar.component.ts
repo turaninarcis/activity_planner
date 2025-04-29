@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../core/auth/token.service';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 import { NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [NgIf, RouterLink],
+  imports: [NgIf, RouterLink, CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   showLogoutModal:boolean = false;
-
+  currentRoute: string = '';
   toggleDarkMode() {
     const body = document.body;
     const currentTheme = body.getAttribute('data-bs-theme');
@@ -22,8 +23,11 @@ export class NavbarComponent {
   }
   constructor(
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
   ){}
+  ngOnInit(): void {
+    this.currentRoute = this.router.url;
+  }
 
   openLogoutModal() {
     this.showLogoutModal = true;
@@ -36,5 +40,8 @@ export class NavbarComponent {
   }
   closeLogoutModal() {
     this.showLogoutModal = false;
+  }
+  changeRoute(route){
+    this.currentRoute = route;
   }
 }

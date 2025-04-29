@@ -90,6 +90,12 @@ export class GroupDetailsComponent {
       const modal = new Modal(document.getElementById('kickMemberModal')!);
       modal.show();
     }
+
+    openCopyTokenModal() {  
+      const modal = new Modal(document.getElementById('copyTokenModal')!);
+      modal.show();
+    }
+
     kickMember() {
       if (this.selectedMember) {
         console.log(this.selectedMember.id);

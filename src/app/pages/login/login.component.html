@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-center align-items-center flex-column">
-    <form [formGroup]="loginForm" class="w-sm-75 w-md-50 w-lg-25 p-4 border rounded shadow bg-white" (ngSubmit)="onSubmit()" novalidate>
+<div class="d-flex justify-content-center align-items-center flex-column h-100">
+    <form [formGroup]="loginForm" class="w-sm-75 w-md-50 w-lg-25 p-4 border rounded shadow" (ngSubmit)="onSubmit()" novalidate>
         <h1>Login</h1>
         <!-- Username -->
         <div class="mb-3">
@@ -15,7 +15,7 @@
             <div class="input-group">
               <input [type]="showPassword ? 'text' : 'password'" 
                      id="password" 
-                     class="form-control"
+                     class="form-control text-break"
                      formControlName="password"
                      [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" />
           
@@ -29,7 +29,7 @@
 
         <div *ngIf="backendErrors.length > 0" class="alert alert-danger m-4">
             <ul class="mb-0">
-              <li *ngFor="let error of backendErrors">{{ error }}</li>
+              <li *ngFor="let error of backendErrors" class="text-break">{{ error }}</li>
             </ul>
         </div>
         <p>You don't have an acoun yet? <a routerLink="/register">Sign up</a></p>

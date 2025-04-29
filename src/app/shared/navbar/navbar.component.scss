@@ -13,9 +13,12 @@
   }
   
   .modal-content {
-    background-color: white;
+    background-color: var(--bs-body-bg);
     padding: 2rem;
     border-radius: 10px;
     width: 300px;
     max-width: 90%;
+  }
+  .activated{
+    background-color: rgba(172, 172, 172, 0.411);
   }

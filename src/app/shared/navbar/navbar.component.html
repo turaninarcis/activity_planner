@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary d-block w-100">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Activity planner</a>
-      <button class="button-activities btn btn-primary" routerLink="/home/activities">Activities</button>
-      <button class="button-groups btn btn-secondary" routerLink="/home/groups">Groups</button>
+      <button class="btn" [ngClass]="{'activated': currentRoute==='/activities'}" routerLink="/activities" (click)="changeRoute('/activities')" >Activities</button>
+      <button class="btn" [ngClass]="{'activated': currentRoute==='/groups'}" routerLink="/groups" (click)="changeRoute('/groups')">Groups</button>
       <div class="d-flex ms-auto gap-2">
   
         <button routerLink="/user" class="btn btn-outline-primary">User</button>
@@ -12,7 +12,7 @@
           <div class="modal-content">
             <h5>Confirm Logout</h5>
             <p>Are you sure you want to logout?</p>
-            <div class="d-flex justify-content-end gap-2 mt-3">
+            <div class="d-flex justify-content-between mt-3">
               <button class="btn btn-secondary" (click)="closeLogoutModal()">Cancel</button>
               <button class="btn btn-danger" (click)="logout()">Logout</button>
             </div>

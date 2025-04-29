@@ -1,13 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivityService } from '../../../services/activities.service';
+import { ActivityService } from '../../services/activities.service';
 import { NgFor, NgIf } from '@angular/common';
 import { ActivitiesCardComponent } from './activities-card/activities-card.component';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {Modal} from 'bootstrap';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
+
 @Component({
   selector: 'app-activities',
-  imports: [NgFor, ActivitiesCardComponent, RouterLink, FormsModule, NgIf],
+  imports: [NgFor, ActivitiesCardComponent, RouterLink, FormsModule, NgIf, NavbarComponent],
   templateUrl: './activities.component.html',
   styleUrl: './activities.component.scss'
 })

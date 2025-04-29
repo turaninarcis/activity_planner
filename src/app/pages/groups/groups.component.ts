@@ -2,12 +2,13 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GroupsCardComponent } from "./groups-card/groups-card.component";
-import { GroupsService } from '../../../services/groups.service';
+import { GroupsService } from '../../services/groups.service';
 import { RouterLink } from '@angular/router';
 import {Modal} from 'bootstrap';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
 @Component({
   selector: 'app-groups',
-  imports: [NgIf, FormsModule, GroupsCardComponent, NgFor, RouterLink],
+  imports: [NgIf, FormsModule, GroupsCardComponent, NgFor, RouterLink, NavbarComponent],
   templateUrl: './groups.component.html',
   styleUrl: './groups.component.scss'
 })

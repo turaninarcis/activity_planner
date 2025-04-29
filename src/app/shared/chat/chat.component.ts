@@ -53,4 +53,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     element.scrollTop = element.scrollHeight;
     console.log(element.scrollTop, element.scrollHeight);
   }
+
+  isNewDate(currentIndex: number): boolean {
+    if (currentIndex === 0) return true; // always show date before first message
+  
+    const currentDate = new Date(this.messages[currentIndex].sendDateTime).toDateString();
+    const previousDate = new Date(this.messages[currentIndex - 1].sendDateTime).toDateString();
+  
+    return currentDate !== previousDate;
+  }
 }

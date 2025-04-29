@@ -4,7 +4,7 @@ import { NavbarComponent } from '../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterModule, RouterOutlet, NavbarComponent],
+  imports: [RouterModule,  NavbarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

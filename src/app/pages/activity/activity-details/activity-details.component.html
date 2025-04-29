@@ -1,6 +1,11 @@
-<h1 class="text-center mb-4">
-  {{ activityDetails?.name === null ? "Loading..." : activityDetails.name }}
-</h1>
+<div class="d-flex justify-content-around">
+  <div></div>
+  <h1 class="text-center mb-4">
+    {{ activityDetails?.name === null ? "Loading..." : activityDetails.name }}
+  </h1>
+  <button class="btn btn-primary h-50" *ngIf="canModifyActivity()" routerLink="edit">Edit</button>
+</div>
+
 
 <!-- Description Section -->
 <div class="container mb-4">
@@ -20,27 +25,17 @@
     <br>
     <span><strong>End Date:</strong> {{ activityDetails?.endDate === null ? "Not set yet" : activityDetails.endDate | date: 'dd.MM.yyyy HH:mm' }}</span>
 </div>
-<div class="container w-100 mb-4">
-  <!-- Invite Token Section -->
-  <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-warning" (click)="changeUserConfirmation()">
-        {{getUserConfirmation()===false ? "Confirm" : "Unconfirm"}}
-      </button>
-      <p class="text-truncate">{{ activityDetails?.inviteToken }}</p>
-      <button class="btn btn-outline-primary" (click)="copyText(activityDetails?.inviteToken)">
-          Copy Token
-      </button>
-  
-  </div>
-</div>
 
 <!-- Edit Button -->
-<div class="container d-flex">
-    <div class="container w-100 mt-5 text-center">
-      <button class="btn btn-primary" *ngIf="canModifyActivity()" routerLink="edit">Edit</button>
-      <button class="btn btn-outline-danger" (click)="openLeaveActivityModal()"  >Leave</button>
-    </div>
-  </div>
+<div class="container d-flex justify-content-between">
+  <button class="btn" [ngClass]="{'btn-success': !getUserConfirmation(), 'btn-warning':getUserConfirmation()}" (click)="changeUserConfirmation()">
+    {{getUserConfirmation()===false ? "Confirm" : "Unconfirm"}}
+  </button>
+  <button class="btn btn-outline-primary" (click)="openCopyTokenModal()">
+    Copy Token
+  </button>
+  <button class="btn btn-outline-danger" (click)="openLeaveActivityModal()"  >Leave</button>
+</div>
 <hr>
 
 <!-- Tasks Section -->
@@ -86,7 +81,7 @@
               </button>
               <button *ngIf="checkTaskAssignment(task)" class="btn btn-outline-success" (click)="changeAssignStatus(task)">Change status</button>
             </div>
-
+            <hr *ngIf="canModifyActivity()">
             <div class="d-flex justify-content-between">
               <button *ngIf="canModifyActivity()" class="btn btn-primary" (click)="openUpdateTaskModal(task)">Edit task</button>
               <button *ngIf="canModifyActivity()" class="btn btn-outline-danger" (click)="openDeleteTaskModal(task)">Delete task</button>
@@ -391,3 +386,35 @@
 
 
 
+<div
+  class="modal fade"
+  id="copyTokenModal"
+  tabindex="-1"
+  aria-labelledby="copyTokenModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="copyTokenModalLabel">Copy the invite token</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        {{ activityDetails?.inviteToken }}
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary" (click)="copyText(activityDetails?.inviteToken)">
+          Copy
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
