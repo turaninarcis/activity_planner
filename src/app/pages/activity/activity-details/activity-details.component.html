@@ -1,9 +1,10 @@
-<div class="d-flex justify-content-around">
+<div class="d-flex justify-content-between">
   <div></div>
   <h1 class="text-center mb-4">
     {{ activityDetails?.name === null ? "Loading..." : activityDetails.name }}
   </h1>
   <button class="btn btn-primary h-50" *ngIf="canModifyActivity()" routerLink="edit">Edit</button>
+  <div *ngIf="!canModifyActivity()"></div>
 </div>
 
 

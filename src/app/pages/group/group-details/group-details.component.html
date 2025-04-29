@@ -5,6 +5,7 @@
         {{ groupDetails?.name === null ? "Loading..." : groupDetails.name }}
       </h1>
       <button *ngIf="canModifyGroup()" class="btn btn-primary h-50" routerLink="edit">Edit</button>
+      <div *ngIf="!canModifyGroup()"></div>
     </div>
 
  

@@ -1,4 +1,4 @@
-<form [formGroup]="userUpdateForm" class="details-container bg-light p-4 rounded shadow-sm" (ngSubmit)="onSubmit()">
+<form [formGroup]="userUpdateForm" class="details-container bg-body-secondary p-4 rounded shadow-sm" (ngSubmit)="onSubmit()">
     <h2>Update</h2>
     <hr/>
     <div class="mb-3">
@@ -35,9 +35,9 @@
     </div>
 
 
-    <div class="mt-5">
+    <div class="mt-4">
         <button (click)="showChangePassword = !showChangePassword" type="button" class="btn btn-secondary">Change password</button>
-        <div class="mb-3 position-relative" *ngIf="showChangePassword">
+        <div class="mb-4 mt-4 position-relative" *ngIf="showChangePassword">
             <label for="newPassword" class="form-label">New Password</label>
             <div class="input-group">
               <input [type]="showUpdatePassword ? 'text' : 'password'" 

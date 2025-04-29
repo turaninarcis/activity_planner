@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { DetailsPayload } from '../../../Models/details-payload.model';
+import {NavbarComponent} from '../../shared/navbar/navbar.component'
 @Component({
   selector: 'app-user',
-  imports: [RouterModule],
+  imports: [RouterModule, NavbarComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
