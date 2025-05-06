@@ -1,26 +1,76 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary d-block w-100">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Activity planner</a>
-      <button class="btn" [ngClass]="{'activated': currentRoute==='/activities'}" routerLink="/activities" (click)="changeRoute('/activities')" >Activities</button>
-      <button class="btn" [ngClass]="{'activated': currentRoute==='/groups'}" routerLink="/groups" (click)="changeRoute('/groups')">Groups</button>
-      <div class="d-flex ms-auto gap-2">
-  
-        <button routerLink="/user" class="btn btn-outline-primary">User</button>
-        <button routerLink="/logout" class="btn btn-outline-danger" (click)="openLogoutModal()">Logout</button>
-  
-        <div class="modal-backdrop" *ngIf="showLogoutModal">
-          <div class="modal-content">
-            <h5>Confirm Logout</h5>
-            <p>Are you sure you want to logout?</p>
-            <div class="d-flex justify-content-between mt-3">
-              <button class="btn btn-secondary" (click)="closeLogoutModal()">Cancel</button>
-              <button class="btn btn-danger" (click)="logout()">Logout</button>
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-outline-secondary" (click)="toggleDarkMode()">
-          🌓
-        </button>
+<nav class="navbar navbar-expand-lg bg-body-tertiary w-100">
+  <div class="container-fluid">
+    <!-- Toggler button for collapsed navbar -->
+    <button class="navbar-toggler"
+            type="button"
+            (click)="toggleNavbar()"
+            aria-controls="navbarSupportedContent" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Brand -->
+    <a class="navbar-brand position-absolute top-0 start-50 translate-middle-x d-lg-none mt-2" href="#">
+      Activity planner
+    </a>
+    
+    <!-- Left-aligned brand for large screens -->
+    <a class="navbar-brand d-none d-lg-block" href="#">
+      Activity planner
+    </a>
+
+    <!-- Always-top-right Dark Mode Button -->
+    <div class="ms-auto d-lg-none">
+      <button class="btn btn-outline-secondary" (click)="toggleDarkMode()">🌓</button>
+    </div>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" #navbarCollapse>
+
+      <!-- Left side nav buttons -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button class="btn" 
+                  [ngClass]="{'activated': currentRoute==='/activities'}" 
+                  routerLink="/activities" 
+                  (click)="changeRoute('/activities')">
+            Activities
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="btn" 
+                  [ngClass]="{'activated': currentRoute==='/groups'}" 
+                  routerLink="/groups" 
+                  (click)="changeRoute('/groups')">
+            Groups
+          </button>
+        </li>
+        <li class="nav-item">
+          <button routerLink="/user" class="btn">User</button>
+        </li>
+        <li class="nav-item">
+          <button routerLink="/logout" class="btn" (click)="openLogoutModal()">Logout</button>
+        </li>
+      </ul>
+
+      <!-- Right side (only on large screens and up) -->
+      <div class="d-none d-lg-flex align-items-center ms-auto gap-2">
+        <button routerLink="/user" class="btn">User</button>
+        <button routerLink="/logout" class="btn" (click)="openLogoutModal()">Logout</button>
+        <button class="btn btn-outline-secondary" (click)="toggleDarkMode()">🌓</button>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
+
+  <div class="modal-backdrop" *ngIf="showLogoutModal">
+    <div class="modal-content">
+      <h5>Confirm Logout</h5>
+      <p>Are you sure you want to logout?</p>
+      <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-secondary" (click)="closeLogoutModal()">Cancel</button>
+        <button class="btn btn-danger" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </div>

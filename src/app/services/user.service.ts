@@ -29,7 +29,7 @@ export class UserService {
     const token = localStorage.getItem('jwt_token');
     if(!token) return null;
     const decodedToken:any = jwtDecode(token);
-    return decodedToken.sub || null;
+    return decodedToken?.username || null;
   }
 
 }

@@ -1,11 +1,12 @@
 <div class="d-flex justify-content-center align-items-center h-100 flex-column">
-    
+  <h2>Group activity planner</h2>
+  
     <div *ngIf="backendErrors.length > 0" class="alert alert-danger">
         <ul class="mb-0">
           <li *ngFor="let error of backendErrors">{{ error }}</li>
         </ul>
       </div>
-    <form [formGroup]="registerForm" class="w-sm-75 w-md-50 w-lg-25 p-4 border rounded shadow"  style="max-width: 300px;" (ngSubmit)="onSubmit()" novalidate>
+    <form [formGroup]="registerForm" class="w-sm-75 w-md-50 w-lg-25 p-4 border rounded shadow"  style="max-width: 350px; width: 350px;" (ngSubmit)="onSubmit()" novalidate>
         <h1>Register</h1>
         <!-- Username -->
         <div class="mb-3">
