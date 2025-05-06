@@ -22,9 +22,7 @@ export const routes: Routes = [
     {path:'register', component: RegisterComponent, canActivate: [guestGuard]},
     {path:'login', component: LoginComponent, canActivate: [guestGuard]},
     {
-        path:'home', 
-        component: HomeComponent, 
-        canActivate: [authGuard]
+        path:'home', component: HomeComponent, canActivate: [authGuard]
     },
     {
         path:'groups', component: GroupsComponent, canActivate:[authGuard]

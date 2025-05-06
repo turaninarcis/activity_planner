@@ -6,6 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { FormsModule} from '@angular/forms';
 
 import {Modal} from 'bootstrap';
+import { DetailsPayload } from '../../../../Models/details-payload.model';
 @Component({
   selector: 'app-activity-details',
   imports: [CommonModule, RouterLink, NgIf, NgClass, FormsModule],
@@ -19,7 +20,7 @@ export class ActivityDetailsComponent implements OnInit{
   activityDetails:any;
   id!: string | null;
   selectedMember:any;
-
+  userDetails!:DetailsPayload|null;
   selectedTask={
     id:'',
     name:'',
@@ -42,7 +43,7 @@ export class ActivityDetailsComponent implements OnInit{
     this.id = this.route.snapshot.paramMap.get('id');
 
     this.activityService.getActivityDetails(this.id).subscribe(data => this.activityDetails = data.activityDetails);
-
+    this.userService.userDetails$.subscribe(details=>this.userDetails=details);
   }
 
   copyText(value: string): void {
@@ -51,7 +52,7 @@ export class ActivityDetailsComponent implements OnInit{
     });
   }
   canModifyActivity(): boolean {
-    const currentUsername = this.userService.getCurrentUsername(); // from above
+    const currentUsername = this.userDetails?.username; // from above
 
     if (!currentUsername || !this.activityDetails?.members) return false;
   
@@ -62,7 +63,7 @@ export class ActivityDetailsComponent implements OnInit{
     return !!user && (user.role === 'CREATOR'||user.role==='ADMINISTRATOR' ||user.role==='MODERATOR') ;
   }
   getLoggedUser():any{
-    return this.userService.getCurrentUsername();
+    return this.userDetails?.username;
   }
   leaveActivity(){
     this.activityService.leaveActivity(this.id).subscribe(data=>console.log(data));

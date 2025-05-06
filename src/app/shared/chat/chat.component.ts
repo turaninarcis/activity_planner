@@ -1,42 +1,50 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { UserService } from '../../services/user.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {ChatMessage} from '../../../Models/chat-message.model'
 import { GroupsService } from '../../services/groups.service';
+import { DetailsPayload } from '../../../Models/details-payload.model';
 @Component({
   selector: 'app-chat',
   imports: [NgFor, FormsModule, CommonModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
-export class ChatComponent implements OnInit, AfterViewChecked {
+export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
   
   @Input() groupId!: string;  // Group ID
   public messages: ChatMessage[] = [];
   public message: string = '';
-  public username: string = 'User'; // Get the actual username from your auth service
-  public loggedUser: string ='';
+  public loggedUser?: string ='';
+  userDetails!:DetailsPayload|null;
   constructor(private chatService: ChatService,
     private userService: UserService,
     private groupService:GroupsService
   ) {}
+  ngOnDestroy(): void {
+    this.chatService.disconnect();
+  }
   ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
 
   ngOnInit(): void {
     this.chatService.connectAndSubscribe(this.groupId);
-    this.loggedUser= this.userService.getCurrentUsername()!;
 
     this.groupService.getPastMessages(this.groupId).subscribe(data=>{
       this.chatService.loadPastMessages(data.chatMessages);
     }
     );
 
-    this.username = this.userService.getCurrentUsername()!;
+    this.userService.userDetails$.subscribe({
+      next: (res) => {
+        this.userDetails=res;
+        this.loggedUser=res?.username;
+      }
+    });
     
     this.chatService.getMessages().subscribe(messages =>{
       this.messages = messages;
@@ -44,7 +52,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   send() {
-    this.chatService.sendMessage(this.groupId, this.username,this.message);
+    this.chatService.sendMessage(this.groupId, this.loggedUser!,this.message);
     this.message = '';
   }
 

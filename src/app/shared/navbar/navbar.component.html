@@ -11,12 +11,12 @@
     </button>
 
     <!-- Brand -->
-    <a class="navbar-brand position-absolute top-0 start-50 translate-middle-x d-lg-none mt-2" href="#">
+    <a class="navbar-brand position-absolute top-0 start-50 translate-middle-x d-lg-none mt-2" routerLink="/home">
       Activity planner
     </a>
     
     <!-- Left-aligned brand for large screens -->
-    <a class="navbar-brand d-none d-lg-block" href="#">
+    <a class="navbar-brand d-none d-lg-block" routerLink="/home">
       Activity planner
     </a>
 
@@ -46,18 +46,18 @@
             Groups
           </button>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-lg-none">
           <button routerLink="/user" class="btn">User</button>
         </li>
-        <li class="nav-item">
-          <button routerLink="/logout" class="btn" (click)="openLogoutModal()">Logout</button>
+        <li class="nav-item d-lg-none">
+          <button class="btn" (click)="openLogoutModal()">Logout</button>
         </li>
       </ul>
 
       <!-- Right side (only on large screens and up) -->
-      <div class="d-none d-lg-flex align-items-center ms-auto gap-2">
+      <div class="d-none d-lg-flex justify-content-center align-items-center ms-auto gap-2">
         <button routerLink="/user" class="btn">User</button>
-        <button routerLink="/logout" class="btn" (click)="openLogoutModal()">Logout</button>
+        <button class="btn" (click)="openLogoutModal()">Logout</button>
         <button class="btn btn-outline-secondary" (click)="toggleDarkMode()">🌓</button>
       </div>
     </div>

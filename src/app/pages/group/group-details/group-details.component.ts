@@ -6,6 +6,7 @@ import { UserService } from '../../../services/user.service';
 import {Modal} from 'bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ChatComponent } from '../../../shared/chat/chat.component';
+import { DetailsPayload } from '../../../../Models/details-payload.model';
 @Component({
   selector: 'app-group-details',
   imports: [CommonModule, NgFor,NgIf, RouterLink, FormsModule, ChatComponent],
@@ -19,6 +20,7 @@ export class GroupDetailsComponent {
   editRoles:boolean = false;
   availableRoles = ['ADMINISTRATOR', 'MEMBER'];
   pastMessages:any;
+  userDetails!:DetailsPayload|null;
   constructor(
     private groupService:GroupsService,
     private activatedRoute:ActivatedRoute,
@@ -36,7 +38,7 @@ export class GroupDetailsComponent {
         console.log(this.groupDetails);
       }
     });
-
+    this.userService.userDetails$.subscribe(details => this.userDetails=details);
   }
 
   copyText(value: string): void {
@@ -46,7 +48,7 @@ export class GroupDetailsComponent {
   }
 
   canModifyGroup(): boolean {
-    const currentUsername = this.userService.getCurrentUsername(); // from above
+    const currentUsername = this.userDetails?.username; // from above
 
     if (!currentUsername || !this.groupDetails?.groupMembers) return false;
   
@@ -57,7 +59,7 @@ export class GroupDetailsComponent {
     return !!user && (user.role === 'CREATOR'||user.role==='ADMINISTRATOR' ||user.role==='MODERATOR') ;
   }
   canUpdateMember(member: any): boolean {
-    const currentUsername = this.userService.getCurrentUsername(); // from above
+    const currentUsername = this.userDetails?.username; // from above
 
     return this.canModifyGroup() && currentUsername !== member.username && member.role!=='CREATOR';
   }

@@ -10,16 +10,15 @@ import {NavbarComponent} from '../../shared/navbar/navbar.component'
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements OnInit{
-  userDetails!:DetailsPayload;
+  userDetails!:DetailsPayload | null;
   isLoading: boolean = true;
   constructor(private userService: UserService){
   }
   ngOnInit(): void {
-    this.userService.getDetails().subscribe({
+    this.userService.userDetails$.subscribe({
       next: (data) => {
         this.userDetails = data;
         this.isLoading = false;
-        this.userService.setUserDetails(data);
       },
       error: (err) =>{
         console.error("Error fetching details");

@@ -3,6 +3,7 @@
 
   <div class="chat-box">
       <div class="messages" #messagesContainer>
+        <div *ngIf="messages.length===0">No messages yet, be the first</div>
         <div *ngFor="let msg of messages; let i= index" class="message d-flex flex-column">
           <div *ngIf="isNewDate(i)" class="date-divider">
             {{ msg.sendDateTime | date:'dd MMMM yyyy' }}

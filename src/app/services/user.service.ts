@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { DetailsPayload } from '../../Models/details-payload.model';
 import { UserUpdatePayload } from '../../Models/user-update-payload.model';
-import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,21 +14,19 @@ export class UserService {
 
   public getDetails():Observable<DetailsPayload>{
       console.log('Hit get');
-        return this.http.get<DetailsPayload>(`${this.apiUrl}`);
-  }
-  public setUserDetails(details: DetailsPayload): void {
-      this.userDetailsSubject.next(details);
+        return this.http.get<DetailsPayload>(`${this.apiUrl}`).pipe(
+          tap((respone) =>{
+            this.userDetailsSubject.next(respone);
+          })
+        );
   }
 
-  public updateUser(updatePayload:UserUpdatePayload):Observable<UserUpdatePayload>{
+  public updateUser(updatePayload:UserUpdatePayload):Observable<DetailsPayload>{
     console.log('Hit update');
-      return this.http.patch<UserUpdatePayload>(`${this.apiUrl}`,updatePayload);
+      return this.http.patch<DetailsPayload>(`${this.apiUrl}`,updatePayload).pipe(
+        tap((respone) =>{
+          this.userDetailsSubject.next(respone);
+        })
+      );
 }
-  public getCurrentUsername():string | null {
-    const token = localStorage.getItem('jwt_token');
-    if(!token) return null;
-    const decodedToken:any = jwtDecode(token);
-    return decodedToken?.username || null;
-  }
-
 }
