@@ -16,7 +16,6 @@ export class ChatService {
 
   connectAndSubscribe(groupId:string){
     this.token = localStorage.getItem('jwt_token')!;
-    console.log(this.token);
 
     // Create a Stomp client
     this.client = new Client({
@@ -24,7 +23,7 @@ export class ChatService {
       reconnectDelay: 5000,  // Reconnect delay in ms
       debug: (str) => console.log(str),  // Log connection status
       onConnect: () => { 
-        console.log('Connected to WebSocket');
+        //console.log('Connected to WebSocket');
         this.connected = true;  // Mark connection as established
         this.subscribeToGroup(groupId);
       },
@@ -59,13 +58,16 @@ export class ChatService {
   }
 
   // Send a message to a group
-  public sendMessage(groupId: string,senderName:string, content: string): void {
-    const chatMessage = { content: content , senderName:senderName, groupId:groupId}; // Example message object
+  public sendMessage(groupId: string,senderName:string, message: string, image:string|null): void {
+    const chatMessage = { message:message, image:image , senderName:senderName, groupId:groupId}; // Example message object
+    console.log(JSON.stringify(chatMessage));
     this.client.publish({
       destination: `/app/sendMessage`,  // Send to appropriate group endpoint
       body: JSON.stringify(chatMessage)  // Send the message as JSON
     });
   }
+
+
 
   public getMessages() {
     return this.messages$.asObservable();  // Expose as observable

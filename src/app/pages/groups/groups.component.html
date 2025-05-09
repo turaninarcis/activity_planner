@@ -1,9 +1,9 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="text-center my-4">
-        <button class="btn bg-body-secondary mx-2" routerLink="/create-group">Create</button>
+        <button class="button-secondary mx-2" routerLink="/create-group">Create</button>
 
-        <button class="btn bg-body-secondary mx-2" data-bs-toggle="modal" data-bs-target="#joinGroupModal">
+        <button class="button-secondary mx-2" data-bs-toggle="modal" data-bs-target="#joinGroupModal">
           Join
         </button>
       </div>
@@ -39,8 +39,8 @@
               </div>
       
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" [disabled]="!joinForm.form.valid">Join</button>
+                <button type="button" class="button-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="button-primary" [disabled]="!joinForm.form.valid">Join</button>
               </div>
             </form>
       

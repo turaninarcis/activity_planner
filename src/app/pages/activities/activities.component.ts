@@ -6,7 +6,6 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {Modal} from 'bootstrap';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
-
 @Component({
   selector: 'app-activities',
   imports: [NgFor, ActivitiesCardComponent, RouterLink, FormsModule, NgIf, NavbarComponent],
@@ -29,7 +28,7 @@ export class ActivitiesComponent implements OnInit{
     if (this.inviteToken) {
       this.activityService.joinActivity(this.inviteToken).subscribe({
         next: (res) => {
-          console.log("Joined successfully!", res);
+          //console.log("Joined successfully!", res);
           this.inviteToken = '';
           this.activityService.getJoinedActivities().subscribe(data=>this.activities = data.activities);
           this.closeModal();

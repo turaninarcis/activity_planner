@@ -1,0 +1,27 @@
+@use "sass:color";
+
+@mixin button-style($bg-color, $text-color: white, $variant: "solid") {
+    @if $variant == "outline" {
+      background-color: transparent;
+      color: $bg-color;
+      border: 1px solid $bg-color;
+  
+      &:hover {
+        background-color: color.scale($bg-color, $lightness: -10%);
+        color: white;
+      }
+    } @else {
+      background-color: $bg-color;
+      color: $text-color;
+      border: 1px solid transparent;
+  
+      &:hover {
+        background-color: color.scale($bg-color, $lightness: -10%);
+      }
+    }
+  
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }

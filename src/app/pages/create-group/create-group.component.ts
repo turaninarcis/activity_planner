@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { GroupsService } from '../../services/groups.service';
-
+import { NavbarComponent } from "../../shared/navbar/navbar.component";
 @Component({
   selector: 'app-create-group',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, NavbarComponent],
   templateUrl: './create-group.component.html',
   styleUrl: './create-group.component.scss'
 })

@@ -20,14 +20,14 @@ export class ActivityComponent implements OnInit{
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     if (!this.id) {
-      this.router.navigate(['/home/activities']);
+      this.router.navigate(['/home']);
       return;
     }
 
     this.activityService.getIsUserPartOfActivity(this.id).subscribe({
       next: (data) => {
         if (!data.joined) {
-          this.router.navigate(['/home/activities']); // assuming '/' is your home page
+          this.router.navigate(['/home']);
           return;
         }
 
@@ -37,14 +37,14 @@ export class ActivityComponent implements OnInit{
             this.checkDone = true;
           },
           error:(err)=>{
-            this.router.navigate(['/home/activities']); // optionally handle failure too
+            this.router.navigate(['/home']); 
             return;
           }
         });
 
       },
       error: (err) => {
-        this.router.navigate(['/home/activities']); // optionally handle failure too
+        this.router.navigate(['/home']); 
         return;
       }
     });

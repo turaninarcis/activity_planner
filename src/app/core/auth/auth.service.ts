@@ -21,11 +21,11 @@ export class AuthService {
 
 
    register(payload: RegisterPayload):Observable<{token: string}>{
-    console.log('Hit');
+    //console.log('Hit');
       return this.http.post<{token: string}>(`${this.apiUrl}/register`,payload);
    }
    login(payload: LoginPayload):Observable<{token: string}>{
-    console.log('Hit');
+    //console.log('Hit');
       return this.http.post<{token: string}>(`${this.apiUrl}/login`,payload);
    }
 }

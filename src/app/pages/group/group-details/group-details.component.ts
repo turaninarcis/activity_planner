@@ -35,7 +35,6 @@ export class GroupDetailsComponent {
     this.groupService.getGroupDetails(this.id).subscribe({
       next:(data)=>{
         this.groupDetails=data;
-        console.log(this.groupDetails);
       }
     });
     this.userService.userDetails$.subscribe(details => this.userDetails=details);
@@ -43,7 +42,7 @@ export class GroupDetailsComponent {
 
   copyText(value: string): void {
     navigator.clipboard.writeText(value).then(() => {
-      console.log('Copied:', value);
+      //console.log('Copied:', value);
     });
   }
 
@@ -87,7 +86,7 @@ export class GroupDetailsComponent {
 
     openKickModal(member: any) {
       this.selectedMember = member;
-      console.log(this.selectedMember);
+      //console.log(this.selectedMember);
   
       const modal = new Modal(document.getElementById('kickMemberModal')!);
       modal.show();
@@ -100,8 +99,12 @@ export class GroupDetailsComponent {
 
     kickMember() {
       if (this.selectedMember) {
-        console.log(this.selectedMember.id);
-        this.groupService.kickFromGroup(this.id,this.selectedMember.id).subscribe(data=>console.log(data));
+        //console.log(this.selectedMember.id);
+        this.groupService.kickFromGroup(this.id,this.selectedMember.id).subscribe({
+          next:(data)=>{
+            //console.log(data);
+          }
+        });
 
         this.groupDetails.groupMembers = this.groupDetails.groupMembers.filter(member => member.id !== this.selectedMember.id);
   

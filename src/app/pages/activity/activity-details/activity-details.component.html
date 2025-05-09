@@ -3,7 +3,7 @@
   <h1 class="text-center mb-4">
     {{ activityDetails?.name === null ? "Loading..." : activityDetails.name }}
   </h1>
-  <button class="btn btn-primary h-50" *ngIf="canModifyActivity()" routerLink="edit">Edit</button>
+  <button class="button-primary h-50" *ngIf="canModifyActivity()" routerLink="edit">Edit</button>
   <div *ngIf="!canModifyActivity()"></div>
 </div>
 
@@ -29,13 +29,13 @@
 
 <!-- Edit Button -->
 <div class="container d-flex justify-content-between">
-  <button class="btn" [ngClass]="{'btn-success': !getUserConfirmation(), 'btn-warning':getUserConfirmation()}" (click)="changeUserConfirmation()">
+  <button class="btn" [ngClass]="{'btn-success': !getUserConfirmation(), 'background-danger':getUserConfirmation()}" (click)="changeUserConfirmation()">
     {{getUserConfirmation()===false ? "Confirm" : "Unconfirm"}}
   </button>
-  <button class="btn btn-outline-primary" (click)="openCopyTokenModal()">
+  <button class="button-outline-primary" (click)="openCopyTokenModal()">
     Copy Token
   </button>
-  <button class="btn btn-outline-danger" (click)="openLeaveActivityModal()"  >Leave</button>
+  <button class="button-outline-danger" (click)="openLeaveActivityModal()"  >Leave</button>
 </div>
 <hr>
 
@@ -45,7 +45,7 @@
   <button
     *ngIf="canModifyActivity()"
     type="button"
-    class="btn bg-body-secondary"
+    class="btn background-secondary"
     (click)="openCreateTaskModal()">
     Create Task
   </button>
@@ -66,7 +66,7 @@
                 <h6 class="font-weight-bold">Assigned Users</h6>
                 <div *ngFor="let assignment of task.assignments" class="d-flex justify-content-between align-items-center mb-2">
                     <span class="text-primary">{{ assignment.username }}</span>
-                    <span class="badge" [ngClass]="{'bg-success': assignment.completed, 'bg-warning': !assignment.completed}">{{ assignment.completed ? 'Completed' : 'Pending' }}</span>
+                    <span class="badge" [ngClass]="{'bg-success': assignment.completed, 'background-danger': !assignment.completed}">{{ assignment.completed ? 'Completed' : 'Pending' }}</span>
                 </div>
             </div>
 
@@ -75,17 +75,17 @@
               [ngClass]="{
                 'btn': true,
                 'btn-success': !checkTaskAssignment(task),
-                'btn-warning': checkTaskAssignment(task)
+                'background-danger': checkTaskAssignment(task)
               }"
                (click)="checkTaskAssignment(task) ? unassignYourself(task) : assignYourself(task)">
                 {{ checkTaskAssignment(task) ? 'Unassign yourself' : 'Assign yourself' }}
               </button>
-              <button *ngIf="checkTaskAssignment(task)" class="btn btn-outline-success" (click)="changeAssignStatus(task)">Change status</button>
+              <button *ngIf="checkTaskAssignment(task)" class="button-outline-success" (click)="changeAssignStatus(task)">Change status</button>
             </div>
             <hr *ngIf="canModifyActivity()">
             <div class="d-flex justify-content-between">
-              <button *ngIf="canModifyActivity()" class="btn btn-primary" (click)="openUpdateTaskModal(task)">Edit task</button>
-              <button *ngIf="canModifyActivity()" class="btn btn-outline-danger" (click)="openDeleteTaskModal(task)">Delete task</button>
+              <button *ngIf="canModifyActivity()" class="button-primary" (click)="openUpdateTaskModal(task)">Edit task</button>
+              <button *ngIf="canModifyActivity()" class="button-outline-danger" (click)="openDeleteTaskModal(task)">Delete task</button>
             </div>
           
             
@@ -99,7 +99,7 @@
  <div class="d-flex justify-content-between">
   <h3 class="mb-4">Users</h3>
   <div class="text-end mb-3" *ngIf="canModifyActivity()">
-    <button class="btn btn-outline-primary" (click)="toggleEditRoles()">
+    <button class="button-outline-primary" (click)="toggleEditRoles()">
       {{ editRoles ? 'Done' : 'Edit Roles' }}
     </button>
   </div>
@@ -133,14 +133,14 @@
         <!-- Confirmation badge -->
         <div>
           <span class="badge" 
-                [ngClass]="member.confirmed ? 'bg-success' : 'bg-warning text-dark'">
+                [ngClass]="member.confirmed ? 'bg-success' : 'background-danger text-dark'">
             {{ member.confirmed ? 'Confirmed' : 'Not Confirmed' }}
           </span>
         </div>
 
         <!-- Kick button -->
         <div *ngIf="canModifyActivity() && getLoggedUser() !== member.username">
-          <button class="btn btn-sm btn-outline-danger" (click)="openKickModal(member)">
+          <button class="button-" (click)="openKickModal(member)">
             Kick
           </button>
         </div>
@@ -160,7 +160,7 @@
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-warning text-dark">
+      <div class="modal-header background-danger text-dark">
         <h5 class="modal-title" id="leaveActivityModalLabel">Leave Activity</h5>
         <button
           type="button"
@@ -173,10 +173,10 @@
         Are you sure you want to leave this activity? You will no longer be able to view or participate in it.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="button-secondary" data-bs-dismiss="modal">
           Cancel
         </button>
-        <button type="button" class="btn btn-warning" (click)="leaveActivity()">
+        <button type="button" class="button-outline-danger" (click)="leaveActivity()">
           Confirm Leave
         </button>
       </div>
@@ -206,10 +206,10 @@
         Are you sure you want to remove <strong>{{ selectedMember?.username }}</strong> from this activity?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="button-secondary" data-bs-dismiss="modal">
           Cancel
         </button>
-        <button type="button" class="btn btn-danger" (click)="kickMember()">
+        <button type="button" class="button-danger" (click)="kickMember()">
           Confirm Kick
         </button>
       </div>
@@ -227,7 +227,7 @@
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-body-tertiary">
+      <div class="modal-header background-tertiary">
         <h5 class="modal-title" id="deleteTaskModalLabel">Delete task</h5>
         <button
           type="button"
@@ -240,10 +240,10 @@
         Are you sure you want to delete "{{ selectedTask.name }}" from this activity?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn bg-body-tertiary" data-bs-dismiss="modal">
+        <button type="button" class="btn background-tertiary" data-bs-dismiss="modal">
           Cancel
         </button>
-        <button type="button" class="btn btn-danger" (click)="deleteTask()">
+        <button type="button" class="button-danger" (click)="deleteTask()">
           Confirm Delete
         </button>
       </div>
@@ -304,10 +304,10 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="button-secondary" data-bs-dismiss="modal">Cancel</button>
           <button
             type="submit"
-            class="btn btn-primary"
+            class="button-primary"
             [disabled]="taskForm.invalid"
           >
             Create Task
@@ -371,10 +371,10 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="button-secondary" data-bs-dismiss="modal">Cancel</button>
           <button
             type="submit"
-            class="btn btn-primary"
+            class="button-primary"
             [disabled]="updateTaskForm.invalid"
           >
             Update Task
@@ -396,7 +396,7 @@
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
+      <div class="modal-header background-primary text-white">
         <h5 class="modal-title" id="copyTokenModalLabel">Copy the invite token</h5>
         <button
           type="button"
@@ -409,10 +409,10 @@
         {{ activityDetails?.inviteToken }}
       </div>
       <div class="modal-footer d-flex justify-content-between">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="button-secondary" data-bs-dismiss="modal">
           Cancel
         </button>
-        <button type="button" class="btn btn-primary" (click)="copyText(activityDetails?.inviteToken)">
+        <button type="button" class="button-primary" (click)="copyText(activityDetails?.inviteToken)">
           Copy
         </button>
       </div>

@@ -39,7 +39,7 @@ export class RegisterComponent {
    }
 
    onSubmit(): void{
-    console.log(this.registerForm.value)
+    //console.log(this.registerForm.value)
     if(this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
       return;

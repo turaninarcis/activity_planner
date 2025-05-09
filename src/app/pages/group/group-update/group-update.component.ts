@@ -41,7 +41,7 @@ export class GroupUpdateComponent implements OnInit {
   deletegroup() {
     this.groupService.deleteGroup(this.id === null ? '' : this.id).subscribe({
       next:(data)=>{
-        console.log(data);
+        //console.log(data);
         this.closeDeleteModal();
         this.router.navigate(['/home/groups']);
       }
@@ -73,10 +73,10 @@ export class GroupUpdateComponent implements OnInit {
       name:this.groupDetails.name,
       description: this.groupDetails.description
     }
-    console.log(payload);
+    //console.log(payload);
     this.groupService.updateGroup(this.id,payload).subscribe({
       next:(data)=>{
-        console.log(data);
+        //console.log(data);
         this.router.navigate(['/group',this.id]);
       }
     });

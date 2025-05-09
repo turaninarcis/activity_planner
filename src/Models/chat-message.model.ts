@@ -1,5 +1,6 @@
 export interface ChatMessage{
     senderName: string,
-    content: string,
-    sendDateTime: any
+    message: string,
+    sendDateTime: any,
+    image:string
 }

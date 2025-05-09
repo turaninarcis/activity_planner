@@ -33,7 +33,7 @@ export class GroupsComponent implements OnInit{
     if (this.inviteToken) {
       this.groupsService.joinGroup(this.inviteToken).subscribe({
         next: (res) => {
-          console.log("Joined successfully!", res);
+          //console.log("Joined successfully!", res);
           this.inviteToken = '';
           this.groupsService.getJoinedGroups().subscribe(data=>this.groups = data.joinedGroups);
           this.closeModal();

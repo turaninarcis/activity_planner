@@ -4,7 +4,7 @@
       <h1 class="text-center mb-4">
         {{ groupDetails?.name === null ? "Loading..." : groupDetails.name }}
       </h1>
-      <button *ngIf="canModifyGroup()" class="btn btn-primary h-50" routerLink="edit">Edit</button>
+      <button *ngIf="canModifyGroup()" class="button-primary h-50" routerLink="edit">Edit</button>
       <div *ngIf="!canModifyGroup()"></div>
     </div>
 
@@ -28,10 +28,10 @@
  
       </div>
     <div class="d-flex align-content-center justify-content-between">
-      <button class="btn btn-outline-primary" (click)="openCopyTokenModal()">
+      <button class="button-primary" (click)="openCopyTokenModal()">
         Get Token
       </button>
-      <button (click)="openLeaveGroupModal()" class="btn btn-outline-danger"> Leave </button>
+      <button (click)="openLeaveGroupModal()" class="button-outline-danger"> Leave </button>
     </div>
     <!-- Members Section -->
 
@@ -41,7 +41,7 @@
     <div class="d-flex justify-content-between">
       <h2>Members</h2>
       <div class="text-end mb-3" *ngIf="canModifyGroup()">
-          <button class="btn btn-outline-primary" (click)="toggleEditRoles()">
+          <button class="button-outline-primary"  (click)="toggleEditRoles()">
             {{ editRoles ? 'Done' : 'Edit Roles' }}
           </button>
         </div>
@@ -67,7 +67,7 @@
             </div>
             
             <!-- Conditionally display the Kick button if the logged-in user is an admin and the member is not the logged-in user -->
-            <button *ngIf="canUpdateMember(member)" class="btn btn-danger btn-sm" (click)="openKickModal(member)">
+            <button *ngIf="canUpdateMember(member)" class="button-danger btn-sm" (click)="openKickModal(member)">
             Kick
             </button>
         </div>
@@ -84,7 +84,7 @@
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-warning text-dark">
+      <div class="modal-header background-danger text-dark">
         <h5 class="modal-title" id="leaveGroupModalLabel">Leave Group</h5>
         <button
           type="button"
@@ -97,10 +97,10 @@
         Are you sure you want to leave this group? You will no longer be able to view or participate in it.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="button-secondary" data-bs-dismiss="modal">
           Cancel
         </button>
-        <button type="button" class="btn btn-warning" (click)="leaveGroup()">
+        <button type="button" class="button-outline-danger" (click)="leaveGroup()">
           Confirm Leave
         </button>
       </div>
@@ -130,10 +130,10 @@
         Are you sure you want to remove <strong>{{ selectedMember?.username }}</strong> from this group?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="button-secondary" data-bs-dismiss="modal">
           Cancel
         </button>
-        <button type="button" class="btn btn-danger" (click)="kickMember()">
+        <button type="button" class="button-danger" (click)="kickMember()">
           Confirm Kick
         </button>
       </div>
@@ -150,7 +150,7 @@
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
+      <div class="modal-header background-primary text-white">
         <h5 class="modal-title" id="copyTokenModalLabel">Copy the invite token</h5>
         <button
           type="button"
@@ -163,10 +163,10 @@
         {{ groupDetails?.inviteToken }}
       </div>
       <div class="modal-footer d-flex justify-content-between">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="button-secondary" data-bs-dismiss="modal">
           Cancel
         </button>
-        <button type="button" class="btn btn-primary" (click)="copyText(groupDetails?.inviteToken)">
+        <button type="button" class="button-primary"  (click)="copyText(groupDetails?.inviteToken)">
           Copy
         </button>
       </div>

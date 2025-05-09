@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ActivityService } from '../../services/activities.service';
 import { Router, RouterLink } from '@angular/router';
+import { NavbarComponent } from "../../shared/navbar/navbar.component";
 @Component({
   selector: 'app-create-activity',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, NavbarComponent],
   templateUrl: './create-activity.component.html',
   styleUrl: './create-activity.component.scss'
 })

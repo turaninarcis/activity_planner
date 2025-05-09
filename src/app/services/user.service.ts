@@ -13,7 +13,7 @@ export class UserService {
   userDetails$ = this.userDetailsSubject.asObservable();
 
   public getDetails():Observable<DetailsPayload>{
-      console.log('Hit get');
+      //console.log('Hit get');
         return this.http.get<DetailsPayload>(`${this.apiUrl}`).pipe(
           tap((respone) =>{
             this.userDetailsSubject.next(respone);
@@ -22,7 +22,7 @@ export class UserService {
   }
 
   public updateUser(updatePayload:UserUpdatePayload):Observable<DetailsPayload>{
-    console.log('Hit update');
+    //console.log('Hit update');
       return this.http.patch<DetailsPayload>(`${this.apiUrl}`,updatePayload).pipe(
         tap((respone) =>{
           this.userDetailsSubject.next(respone);

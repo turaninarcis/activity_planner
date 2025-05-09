@@ -19,13 +19,13 @@
                      formControlName="password"
                      [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" />
           
-              <button type="button" class="btn btn-outline-secondary" (click)="showPassword = !showPassword">
+              <button type="button" class="button-outline-secondary" (click)="showPassword = !showPassword">
                 <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
               </button>
             </div>
           </div>
       
-        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+        <button type="submit" class="button-primary"[disabled]="loginForm.invalid">Login</button>
 
         <div *ngIf="backendErrors.length > 0" class="alert alert-danger m-4">
             <ul class="mb-0">

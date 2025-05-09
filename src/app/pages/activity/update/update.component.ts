@@ -44,12 +44,20 @@ export class ActivityUpdateComponent {
     this.activityService.generateNewInviteToken(this.id).subscribe(data => this.activityDetails.inviteToken = data.newToken);
   }
   updateActivity() {
-    this.activityService.updateActivity(this.id,this.activityDetails).subscribe(data=> console.log(data));
+    this.activityService.updateActivity(this.id,this.activityDetails).subscribe({
+      next:(data)=>{
+        //console.log(data);
+      }
+    });
     this.router.navigate([`/activity/${this.id}`]);
   }
 
   deleteActivity() {
-    this.activityService.deleteActivity(this.id).subscribe(data=>console.log(data));
+    this.activityService.deleteActivity(this.id).subscribe({
+      next:(data)=>{
+        //console.log(data);
+      }
+    });
     this.closeDeleteModal();
     this.router.navigate(['']);
     }

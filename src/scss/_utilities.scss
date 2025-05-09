@@ -1,0 +1,57 @@
+@use './variables' as *;
+@use './mixins';
+@use 'sass:color';
+
+
+[data-bs-theme="light"]{
+    @each $name, $color in $light-colors{
+        .text-#{$name}{
+            color:$color;
+        }
+    
+        .background-#{$name}{
+            background-color: $color;
+        }
+    }
+}
+[data-bs-theme="dark"]{
+    @each $name, $color in $dark-colors{
+        .text-#{$name}{
+            color:$color;
+        }
+    
+        .background-#{$name}{
+            background-color: $color;
+        }
+    } 
+}
+
+@each $size, $value in $spacings{
+    .p#{size}{
+        padding: $value;
+    }
+    .m#{size}{
+        margin: $value;
+    }
+}
+
+[data-bs-theme="light"] {
+    @each $name, $color in $light-colors {
+      .button-#{$name} {
+        @include mixins.button-style($color, if($name == "light", #000, #fff), "solid");
+      }
+      .button-outline-#{$name} {
+        @include mixins.button-style($color, $variant: "outline");
+      }
+    }
+  }
+  [data-bs-theme="dark"] {
+    @each $name, $color in $dark-colors {
+      .button-#{$name} {
+        @include mixins.button-style($color, if($name == "light", #000, #fff), "solid");
+      }
+      .button-outline-#{$name} {
+        @include mixins.button-style($color, $variant: "outline");
+      }
+    }
+  }

@@ -15,11 +15,11 @@ export class ActivityService {
 
 
   public getJoinedActivities():Observable<any>{
-      console.log('Hit get joined activities');
+      //console.log('Hit get joined activities');
         return this.http.get<any>(`${this.apiUrl}`);
   }
   public getActivityDetails(id:string|null):Observable<any>{
-    console.log('Hit the activitty details');
+    //console.log('Hit the activitty details');
     this.activity = this.http.get<any>(`${this.apiUrl}/${id}`);
     return this.activity;
   }

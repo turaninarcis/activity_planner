@@ -42,7 +42,7 @@
                      [maxlength]="30"
                      [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" />
           
-              <button type="button" class="btn btn-outline-secondary" (click)="showPassword = !showPassword">
+              <button type="button" class="button-outline-secondary" (click)="showPassword = !showPassword">
                 <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
               </button>
             </div>
@@ -63,7 +63,7 @@
                      [maxlength]="30"
                      [class.is-invalid]="(registerForm.get('confirmPassword')?.touched && registerForm.hasError('passwordsMismatch'))" />
           
-              <button type="button" class="btn btn-outline-secondary" (click)="showConfirmPassword = !showConfirmPassword">
+              <button type="button" class="button-outline-secondary" (click)="showConfirmPassword = !showConfirmPassword">
                 <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
               </button>
             </div>
@@ -72,7 +72,7 @@
             </div>
           </div>
       
-        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+        <button type="submit" class="button-primary" [disabled]="registerForm.invalid">Register</button>
         <p class="mt-3">Already have an account? <a routerLink="/login" >Sign in</a></p>
       </form>
 </div>

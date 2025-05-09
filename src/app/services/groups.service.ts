@@ -13,18 +13,18 @@ export class GroupsService {
   ) { }
 
     public getJoinedGroups():Observable<any>{
-        console.log('Hit get joined groups');
+        //console.log('Hit get joined groups');
           return this.http.get<any>(`${this.apiUrl}`);
     }
     public getGroupDetails(groupId:string|null):Observable<any>{
-      console.log('Hit get groupDetails');
+      //console.log('Hit get groupDetails');
         return this.http.get<any>(`${this.apiUrl}/${groupId}`);
   }
   public getNewInviteToken(groupId:string|null):Observable<any>{
       return this.http.patch<any>(`${this.apiUrl}/${groupId}/newtoken`,{});
   }
   public updateGroup(groupId:string|null, payload):Observable<any>{
-    console.log('Hit updategroup');
+    //console.log('Hit updategroup');
     return this.http.patch<any>(`${this.apiUrl}/${groupId}`,payload);
   }
   public createGroup(payload):Observable<any>{

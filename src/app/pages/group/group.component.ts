@@ -26,7 +26,7 @@ export class GroupComponent implements OnInit {
       next:(data)=>{
         this.groupDetails=data;
         this.checkDone=true;
-        console.log(this.groupDetails);
+        // console.log(this.groupDetails);
       },
       error:(err)=>{
         this.router.navigate(['/home/groups']);

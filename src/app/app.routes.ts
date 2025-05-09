@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
-import { HomeComponent } from './pages/home/home.component';
 import { authGuard } from './core/auth/auth.guard';
 import { guestGuard } from './core/auth/guest.guard';
 import { GroupsComponent } from './pages/groups/groups.component';
@@ -22,13 +21,10 @@ export const routes: Routes = [
     {path:'register', component: RegisterComponent, canActivate: [guestGuard]},
     {path:'login', component: LoginComponent, canActivate: [guestGuard]},
     {
-        path:'home', component: HomeComponent, canActivate: [authGuard]
-    },
-    {
         path:'groups', component: GroupsComponent, canActivate:[authGuard]
     },
     {
-        path:'activities', component: ActivitiesComponent, canActivate:[authGuard]
+        path:'home', component: ActivitiesComponent, canActivate:[authGuard]
     },
     {
         path:'user', 

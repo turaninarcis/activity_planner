@@ -1,6 +1,7 @@
+
 .messages {
-    max-height: 400px;
-    height: 400px;
+    max-height: 800px;
+    height: 800px;
     overflow-y: auto;
     padding-right: 10px;
     padding-left: 10px;
@@ -19,13 +20,30 @@
     margin-bottom: 8px;
 }
 .chat-header{
-  background-color: #53535352;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   margin: 0;
   padding: 5px;
   padding-left: 10px;
 }
+  .attachment{ 
+    opacity: 0;
+    padding: 0 !important;
+    max-height: 0;
+    transition: 0.3s max-height ease-in-out, 0.3s opacity ease-in-out;
+  }
+  .message-image{
+    border-radius: 10px;
+    max-height: 300px; 
+    max-width: 200px;
+  }
+ .show{
+  padding: 100px;
+  border: 1px solid black;
+  max-height: max-content;
+  opacity: 1;
+ }
+
   .message-time {
     font-size: 0.7rem;
     color: gray;
@@ -42,7 +60,6 @@
     background-color: #8888888c;
   }
   .sender-message{
-    background-color: rgba(0, 76, 190, 0.274);
     align-self:flex-end;
   }
 
@@ -62,4 +79,23 @@
 
   .chat{
     margin-top: 50px;
+  }
+
+  .image-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .expanded-image {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
   }

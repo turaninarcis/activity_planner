@@ -5,6 +5,8 @@ import { NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Collapse} from 'bootstrap';
+import { UserService } from '../../services/user.service';
+import { DetailsPayload } from '../../../Models/details-payload.model';
 
 @Component({
   selector: 'app-navbar',
@@ -27,9 +29,18 @@ export class NavbarComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
     private router: Router,
+    private userService:UserService
   ){}
+  userDetails:DetailsPayload | null = null;
   ngOnInit(): void {
     this.currentRoute = this.router.url;
+    this.userService.userDetails$.subscribe((data)=>{
+      if(data){
+        this.userDetails = data;
+      }else{
+        this.userService.getDetails().subscribe(details => this.userDetails = details);
+      }
+    })
   }
 
   openLogoutModal() {

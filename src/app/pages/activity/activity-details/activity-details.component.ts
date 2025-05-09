@@ -48,7 +48,7 @@ export class ActivityDetailsComponent implements OnInit{
 
   copyText(value: string): void {
     navigator.clipboard.writeText(value).then(() => {
-      console.log('Copied:', value);
+      //console.log('Copied:', value);
     });
   }
   canModifyActivity(): boolean {
@@ -66,7 +66,11 @@ export class ActivityDetailsComponent implements OnInit{
     return this.userDetails?.username;
   }
   leaveActivity(){
-    this.activityService.leaveActivity(this.id).subscribe(data=>console.log(data));
+    this.activityService.leaveActivity(this.id).subscribe({
+      next:(data)=>{
+        //console.log(data);
+      }
+    });
     this.closeLeaveActivityModal();
     this.router.navigate(['/home/activities']);
   }
@@ -93,22 +97,30 @@ export class ActivityDetailsComponent implements OnInit{
   }
 
   changeUserConfirmation(){
-    this.activityService.changeConfirmation(this.id).subscribe(data=>console.log(data));
+    this.activityService.changeConfirmation(this.id).subscribe({
+      next:(data)=>{
+        //console.log(data);
+      }
+    });
     let member = this.activityDetails?.members.find(x=>x.username===this.getLoggedUser());
     member.confirmed = !member.confirmed;
   }
 
   openKickModal(member: any) {
     this.selectedMember = member;
-    console.log(this.selectedMember.id);
+    //console.log(this.selectedMember.id);
 
     const modal = new Modal(document.getElementById('kickMemberModal')!);
     modal.show();
   }
   kickMember() {
     if (this.selectedMember) {
-      console.log(this.selectedMember.id);
-      this.activityService.kickFromActivity(this.id,this.selectedMember.id).subscribe(data=>console.log(data));
+      //console.log(this.selectedMember.id);
+      this.activityService.kickFromActivity(this.id,this.selectedMember.id).subscribe({
+        next:(data)=>{
+          //console.log(data);
+        }
+      });
       this.activityService.getActivityDetails(this.id).subscribe(data => this.activityDetails = data.activityDetails);
 
       const modalElement = document.getElementById('kickMemberModal');
@@ -163,7 +175,11 @@ export class ActivityDetailsComponent implements OnInit{
     const modalInstance = Modal.getInstance(modalElement!);
     modalInstance?.hide();
     
-    this.activityService.updateTask(this.id,this.selectedTask).subscribe(data=>console.log(data));
+    this.activityService.updateTask(this.id,this.selectedTask).subscribe({
+      next:(data)=>{
+        //console.log(data);
+      }
+    });
 
     let taskToUpdate = this.activityDetails.tasks.find(x=>x.id===this.selectedTask.id);
     taskToUpdate.name = this.selectedTask.name;
@@ -194,7 +210,11 @@ export class ActivityDetailsComponent implements OnInit{
     const modalInstance = Modal.getInstance(modalElement!);
     modalInstance?.hide();
     
-    this.activityService.deleteTask(this.id,this.selectedTask).subscribe(data=>console.log(data));
+    this.activityService.deleteTask(this.id,this.selectedTask).subscribe({
+      next:(data)=>{
+        //console.log(data);
+      }
+    });
 
     this.activityDetails.tasks = this.activityDetails.tasks.filter(x=>x.id!==this.selectedTask.id);
     

@@ -50,9 +50,9 @@ export class UpdateComponent implements OnInit{
   }
 
   onSubmit(): void{
-    console.log(this.userUpdateForm.value)
+    //console.log(this.userUpdateForm.value)
     if(this.userUpdateForm.invalid) {
-      console.log("form invalid")
+      //console.log("form invalid")
       this.userUpdateForm.markAllAsTouched();
       return;
     }
@@ -65,7 +65,7 @@ export class UpdateComponent implements OnInit{
       password:password,
       newPassword: newPassword != '' ? newPassword : null
     };
-    console.log(updatePayload);
+    //console.log(updatePayload);
 
     this.userService.updateUser(updatePayload).subscribe({
       next: (res) => {
