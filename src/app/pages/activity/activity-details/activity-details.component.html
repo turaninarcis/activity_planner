@@ -1,10 +1,15 @@
-<div class="d-flex justify-content-between">
+<div class="d-flex flex-column justify-content-end align-content-end activity-header">
+  <div class="d-flex align-content-end justify-content-end">
+    <button class="button-primary h-50" *ngIf="canModifyActivity()" routerLink="edit">Edit</button>
+  </div>
+
+  <div class="container mb-4">
+    <h1>
+      {{ activityDetails?.name === null ? "Loading..." : activityDetails.name }}
+    </h1>
+  </div>
+  
   <div></div>
-  <h1 class="text-center mb-4">
-    {{ activityDetails?.name === null ? "Loading..." : activityDetails.name }}
-  </h1>
-  <button class="button-primary h-50" *ngIf="canModifyActivity()" routerLink="edit">Edit</button>
-  <div *ngIf="!canModifyActivity()"></div>
 </div>
 
 

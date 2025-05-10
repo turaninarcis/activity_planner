@@ -30,7 +30,12 @@ export class CreateActivityComponent implements OnInit {
   createActivity() {
     this.activityService.createActivity(this.activityDetails).subscribe({
       next:(data)=>{
-        this.router.navigate(['/home/activities']);
+        this.activityService.getJoinedActivities().subscribe({
+          next:(data)=>{
+            this.router.navigate(['/activities']);
+          }
+        }
+        );
       }
     });
     

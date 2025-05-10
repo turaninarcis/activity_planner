@@ -14,7 +14,7 @@ import { DetailsPayload } from '../../../../Models/details-payload.model';
   styleUrl: './activity-details.component.scss'
 })
 export class ActivityDetailsComponent implements OnInit{
-  availableRoles = ['ADMINISTRATOR', 'MODERATOR', 'PARTICIPANT'];
+  availableRoles = ['ADMINISTRATOR', 'PARTICIPANT'];
   editRoles:boolean = false;
 
   activityDetails:any;

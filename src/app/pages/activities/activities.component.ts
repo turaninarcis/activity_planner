@@ -6,21 +6,26 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {Modal} from 'bootstrap';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { CalendarComponent } from '../../shared/calendar/calendar.component';
+import { ActivityShortDTO } from '../../../Models/activities.model';
 @Component({
   selector: 'app-activities',
-  imports: [NgFor, ActivitiesCardComponent, RouterLink, FormsModule, NgIf, NavbarComponent],
+  imports: [NgFor, ActivitiesCardComponent, RouterLink, FormsModule, NgIf, NavbarComponent, CalendarComponent],
   templateUrl: './activities.component.html',
   styleUrl: './activities.component.scss'
 })
 export class ActivitiesComponent implements OnInit{
   inviteToken: string = '';
-  activities:any;
+  activities:ActivityShortDTO[] | null = null;
   joinErrorMessage: string = '';
 
   constructor(private activityService:ActivityService){
   }
   ngOnInit(): void {
-    this.activityService.getJoinedActivities().subscribe(data => this.activities=data.activities);
+    this.activityService.activitiesPayload$.subscribe((data)=>{
+        if(data)this.activities = data.activities;
+        else this.activityService.getJoinedActivities().subscribe((data) => this.activities = data.activities);
+      })
   }
 
   joinActivity() {
@@ -31,6 +36,7 @@ export class ActivitiesComponent implements OnInit{
           //console.log("Joined successfully!", res);
           this.inviteToken = '';
           this.activityService.getJoinedActivities().subscribe(data=>this.activities = data.activities);
+
           this.closeModal();
         },
         error: (err) => {

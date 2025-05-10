@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg background-primary w-100">
+<nav class="navbar navbar-expand-lg background-primary w-100 h-25">
   <div class="container-fluid">
     <!-- Toggler button for collapsed navbar -->
     <button class="navbar-toggler"
@@ -30,6 +30,14 @@
 
       <!-- Left side nav buttons -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button class="btn" 
+                  [ngClass]="{'activated': currentRoute==='/activities'}" 
+                  routerLink="/activities" 
+                  (click)="changeRoute('/activities')">
+            Activities
+          </button>
+        </li>
         <li class="nav-item">
           <button class="btn" 
                   [ngClass]="{'activated': currentRoute==='/groups'}" 

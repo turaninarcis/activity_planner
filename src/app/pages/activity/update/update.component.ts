@@ -58,8 +58,12 @@ export class ActivityUpdateComponent {
         //console.log(data);
       }
     });
-    this.closeDeleteModal();
-    this.router.navigate(['']);
+    this.activityService.getJoinedActivities().subscribe({
+      next:(data)=>{
+        this.closeDeleteModal();
+        this.router.navigate(['/activities']);
+      }
+    });
     }
 
     closeDeleteModal() {

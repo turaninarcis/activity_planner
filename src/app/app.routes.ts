@@ -16,15 +16,26 @@ import { GroupComponent } from './pages/group/group.component';
 import { GroupDetailsComponent } from './pages/group/group-details/group-details.component';
 import { GroupUpdateComponent } from './pages/group/group-update/group-update.component';
 import { CreateGroupComponent } from './pages/create-group/create-group.component';
-
+import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { HomeComponent } from './pages/home/home.component';
 export const routes: Routes = [
     {path:'register', component: RegisterComponent, canActivate: [guestGuard]},
     {path:'login', component: LoginComponent, canActivate: [guestGuard]},
     {
-        path:'groups', component: GroupsComponent, canActivate:[authGuard]
+        path:'home',
+        component: HomeComponent,
+        canActivate:[authGuard]
     },
     {
-        path:'home', component: ActivitiesComponent, canActivate:[authGuard]
+        path:'groups',
+        component: GroupsComponent,
+        canActivate:[authGuard]
+    },
+    {
+        path:'activities',
+        component: ActivitiesComponent,
+        canActivate:[authGuard]
     },
     {
         path:'user', 
@@ -52,8 +63,18 @@ export const routes: Routes = [
             {path:"edit", component: GroupUpdateComponent},
         ]
     },
-    {path:'create-activity', component: CreateActivityComponent},
-    {path:'create-group', component: CreateGroupComponent},
+    {
+        path:'create-activity',
+         component: CreateActivityComponent,
+         canActivate: [authGuard]
+    },
+    {
+        path:'create-group',
+        component: CreateGroupComponent,
+        canActivate: [authGuard]
+    },
+    {path:'unauthorized', component: ForbiddenComponent},
+    {path:'404', component: PageNotFoundComponent},
     {path:'', redirectTo:'login', pathMatch: 'full'},
-    {path: '**', redirectTo:'login'}
+    {path: '**', redirectTo:'404'}
 ];

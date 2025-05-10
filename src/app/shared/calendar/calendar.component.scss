@@ -1,0 +1,180 @@
+.calendar {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 5px;
+  border-radius: 10px;
+  font-family: Segoe UI, sans-serif;
+}
+
+.calendar-button{
+    padding: 10px;
+    height: 4rem;
+    width: 4rem;
+    text-align: center;
+    font-size: 4rem;
+    display: flex;
+    position:relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar span{
+    display: block;
+    height: 64px;
+    width: 64px;
+    position: absolute;
+    top: -20px;
+    left: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 500;
+
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 600;
+  padding-bottom: 8px;
+}
+
+.weekday {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  overflow: hidden;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius:5px;
+  gap: 1px;
+}
+
+.calendar-cell {
+  height: 3rem;
+  overflow: hidden;
+}
+
+.day {
+  padding: 4px;
+  height: 100%;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #5c5c5c41;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.day:hover {
+  background-color: #ffffff49;
+}
+
+.day-number {
+  align-self: flex-end;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.today {
+  border: 2px solid #0078d4;
+  border-radius: 8px;
+}
+
+.event {
+   background-color: #dbefff;
+  color: #005a9e;
+  font-size: 12px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  white-space: nowrap;         /* Force text to a single line */
+  overflow: hidden;            /* Hide overflow */
+  text-overflow: ellipsis;     /* Show "..." if text is too long */
+  max-width: 100%;             /* Needed for ellipsis */
+  box-sizing: border-box;
+}
+
+.events-circle{
+  width: 20px;
+  height: 20px;
+  background-color: #0078d4; /* or your preferred color */
+  color: white;
+  border-radius: 50%; /* Makes it a circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+}
+
+.empty {
+  border: 1px solid transparent;
+}
+
+
+
+.calendar-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+
+.calendar-modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  display: block;
+}
+
+.calendar-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-modal-body {
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.calendar-modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.text-wrap {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere; /* optional fallback for better support */
+  max-width: 100%;
+}

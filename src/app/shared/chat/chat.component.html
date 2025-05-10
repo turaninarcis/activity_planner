@@ -21,8 +21,8 @@
           </span>
           <img *ngIf="msg.image!==null" class="message-image"
                [ngClass]="{'align-self-end': loggedUser == msg.senderName}"
-               [src]="'http://localhost:8080'+msg.image"
-               (click)="openImageModal('http://localhost:8080'+ msg.image)"
+               [src]="'http://localhost:8080/images/thumbnail_'+msg.image"
+               (click)="openImageModal('http://localhost:8080/images/'+ msg.image)"
                alt="message image">
           <!-- Expanded Image Modal -->
           <span class="message-time" [ngClass]="{'align-self-end': loggedUser == msg.senderName}">

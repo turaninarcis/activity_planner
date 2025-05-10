@@ -1,0 +1,54 @@
+<div class="calendar background-details">
+  <div class="header">
+    <button class="button-secondary calendar-button" (click)="changeMonth(-1)">
+        <span>←</span>
+    </button>
+    <div class="month-year">{{ monthYear }}</div>
+    <button class="button-secondary calendar-button" (click)="changeMonth(1)">
+        <span>→</span>
+    </button>
+  </div>
+
+  <div class="weekdays">
+    <div *ngFor="let day of weekDays" class="weekday background-primary">{{ day }}</div>
+  </div>
+
+  <div class="days">
+    <div *ngFor="let day of days" class="calendar-cell background-secondary">
+      <div *ngIf="day !== null" class="day" [class.today]="isToday(day)" (click)="showActivities(day)">
+        <div class="day-number">{{ day }}</div>
+        <div class="events">
+          <div *ngIf="getActivities(day).length > 0" class="events-circle">
+            {{ getActivities(day).length }}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="day === null" class="day empty background-tertiary"></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="calendar-modal-backdrop" *ngIf="showModal" (click)="closeModal()"></div>
+
+<div class="calendar-modal-container background-details" *ngIf="showModal">
+  <div class="calendar-modal-header">
+    <h3>Activities on {{ selectedDay }} {{ monthYear }}</h3>
+    <button class="calendar-modal-close-btn" (click)="closeModal()">×</button>
+  </div>
+  <div class="calendar-modal-body">
+    <div *ngIf="activitiesForSelectedDay.length === 0">
+      No activities for this day.
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let act of activitiesForSelectedDay">
+        <strong class="text-wrap">{{ act.name }}</strong><br />
+        <small>{{ act.startDate | date: 'HH:mm' }}</small><br />
+        <p>{{ act.description }}</p>
+      </li>
+    </ul>
+  </div>
+</div>

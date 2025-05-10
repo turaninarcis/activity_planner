@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { ActivityShortDTO } from '../../Models/activities.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +10,8 @@ export class ActivityService {
   private readonly apiUrl = 'http://localhost:8080/activities';
   activity:any;
 
+  private activitiesPayloadSubject = new BehaviorSubject<any|null>(null);
+  public activitiesPayload$ = this.activitiesPayloadSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -16,8 +19,14 @@ export class ActivityService {
 
   public getJoinedActivities():Observable<any>{
       //console.log('Hit get joined activities');
-        return this.http.get<any>(`${this.apiUrl}`);
+        return this.http.get<any>(`${this.apiUrl}`).pipe(
+                tap((respone) =>{
+                  this.activitiesPayloadSubject.next(respone);
+                })
+              );;
   }
+
+
   public getActivityDetails(id:string|null):Observable<any>{
     //console.log('Hit the activitty details');
     this.activity = this.http.get<any>(`${this.apiUrl}/${id}`);
