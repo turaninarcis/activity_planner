@@ -50,7 +50,9 @@
         <app-activities-card *ngFor="let activity of activities" 
         [name]="activity.name"
         [startDate]="activity.startDate"
-        [id]="activity.id">
+        [id]="activity.id"
+        [imageUrl]="'http://localhost:8080/images/'+activity.thumbnailUrl"
+        >
         </app-activities-card>
       </div>
 </div>

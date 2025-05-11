@@ -1,5 +1,6 @@
 export interface ActivityShortDTO{
     id:string,
     name:string,
-    startDate:string
+    startDate:string,
+    thumbnailUrl:string
 }

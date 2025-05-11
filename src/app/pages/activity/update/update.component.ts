@@ -3,9 +3,10 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ActivityService } from '../../../services/activities.service';
 import {Modal} from 'bootstrap'
+import { NgClass, NgIf } from '@angular/common';
 @Component({
   selector: 'app-activity-update',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, NgIf],
   templateUrl: './update.component.html',
   styleUrl: './update.component.scss'
 })
@@ -26,6 +27,11 @@ export class ActivityUpdateComponent {
     private route:ActivatedRoute,
     private router:Router
   ){}
+
+  public image:File | null = null;
+  public imageExists:boolean = false;
+  public imageUrl?:string|null = null;
+  public imagePreview:string|null = null;
 
   ngOnInit(): void {
     const now = new Date();
@@ -49,21 +55,29 @@ export class ActivityUpdateComponent {
         //console.log(data);
       }
     });
-    this.router.navigate([`/activity/${this.id}`]);
+
+    if(this.image){
+      this.activityService.updateActivityImage(this.id, this.image).subscribe({
+        next:(data)=>{
+          this.activityService.getJoinedActivities().subscribe();
+          this.router.navigate([`/activity/${this.id}`]);
+        }
+      });
+    }
+    else this.router.navigate([`/activity/${this.id}`]);
   }
 
   deleteActivity() {
     this.activityService.deleteActivity(this.id).subscribe({
       next:(data)=>{
-        //console.log(data);
+         this.activityService.getJoinedActivities().subscribe({
+          next:(data)=>{
+            this.closeDeleteModal();
+            this.router.navigate(['/activities']);
+          }});
       }
     });
-    this.activityService.getJoinedActivities().subscribe({
-      next:(data)=>{
-        this.closeDeleteModal();
-        this.router.navigate(['/activities']);
-      }
-    });
+    
     }
 
     closeDeleteModal() {
@@ -83,4 +97,34 @@ export class ActivityUpdateComponent {
         modal.show();
       }
     }
+
+ onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.image=file;
+      this.imageExists=true;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagePreview = e.target?.result?.toString() || '';
+        //.log(this.imagePreview);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    (event.target as HTMLInputElement).files=null;
+  }
+
+
+
+  removeSelectedFile(){
+    this.imageExists = false;
+    this.image=null;
+    this.imageUrl=null;
+    setTimeout(()=>{
+      this.imagePreview=null;
+    },300)
+    console.log(this.image);
+  }
+
+
 }

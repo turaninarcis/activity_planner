@@ -10,7 +10,7 @@ import { CalendarComponent } from '../../shared/calendar/calendar.component';
 import { ActivityShortDTO } from '../../../Models/activities.model';
 @Component({
   selector: 'app-activities',
-  imports: [NgFor, ActivitiesCardComponent, RouterLink, FormsModule, NgIf, NavbarComponent, CalendarComponent],
+  imports: [NgFor, ActivitiesCardComponent, RouterLink, FormsModule, NgIf, NavbarComponent],
   templateUrl: './activities.component.html',
   styleUrl: './activities.component.scss'
 })
@@ -25,6 +25,7 @@ export class ActivitiesComponent implements OnInit{
     this.activityService.activitiesPayload$.subscribe((data)=>{
         if(data)this.activities = data.activities;
         else this.activityService.getJoinedActivities().subscribe((data) => this.activities = data.activities);
+        console.log(this.activities);
       })
   }
 

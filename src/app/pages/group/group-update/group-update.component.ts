@@ -43,7 +43,7 @@ export class GroupUpdateComponent implements OnInit {
       next:(data)=>{
         //console.log(data);
         this.closeDeleteModal();
-        this.router.navigate(['/home/groups']);
+        this.router.navigate(['/groups']);
       }
     })
   }

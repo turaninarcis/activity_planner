@@ -10,5 +10,6 @@ import { RouterLink } from '@angular/router';
 export class ActivitiesCardComponent {
   @Input() id!: string;
   @Input() name!: string;
-  @Input() startDate!: string | null; // ISO format or null
+  @Input() startDate!: string | null;
+  @Input() imageUrl!: string|null; // ISO format or null
 }

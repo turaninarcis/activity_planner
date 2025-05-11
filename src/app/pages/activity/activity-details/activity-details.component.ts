@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ActivityService } from '../../../services/activities.service';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -46,6 +46,7 @@ export class ActivityDetailsComponent implements OnInit{
     this.userService.userDetails$.subscribe(details=>this.userDetails=details);
   }
 
+
   copyText(value: string): void {
     navigator.clipboard.writeText(value).then(() => {
       //console.log('Copied:', value);
@@ -68,11 +69,15 @@ export class ActivityDetailsComponent implements OnInit{
   leaveActivity(){
     this.activityService.leaveActivity(this.id).subscribe({
       next:(data)=>{
-        //console.log(data);
+          this.closeLeaveActivityModal();
+          this.activityService.getJoinedActivities().subscribe({
+            next:(data)=>{
+              this.router.navigate(['/activities']);
+            }
+          });
       }
     });
-    this.closeLeaveActivityModal();
-    this.router.navigate(['/home/activities']);
+
   }
   openLeaveActivityModal() {
         const modalElement = document.getElementById('leaveActivityModal');

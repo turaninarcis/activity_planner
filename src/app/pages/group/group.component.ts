@@ -29,7 +29,7 @@ export class GroupComponent implements OnInit {
         // console.log(this.groupDetails);
       },
       error:(err)=>{
-        this.router.navigate(['/home/groups']);
+        this.router.navigate(['/groups']);
         return;
       }
     });

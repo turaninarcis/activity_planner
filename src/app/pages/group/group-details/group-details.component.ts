@@ -65,7 +65,7 @@ export class GroupDetailsComponent {
   leaveGroup(){
       this.groupService.leaveGroup(this.id).subscribe(data=>console.log(data));
       this.closeLeaveGroupModal();
-      this.router.navigate(['/home/groups']);
+      this.router.navigate(['/groups']);
     }
   openLeaveGroupModal() {
           const modalElement = document.getElementById('leaveGroupModal');

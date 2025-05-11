@@ -21,7 +21,7 @@ export class CreateGroupComponent {
     this.groupService.createGroup(this.groupDetails).subscribe({
       next:(data)=>{
         console.log(data);
-        this.router.navigate(['/home/groups']);
+        this.router.navigate(['/groups']);
       }
     });
   }

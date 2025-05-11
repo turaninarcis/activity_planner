@@ -71,7 +71,21 @@
             Regenerate
           </button>
         </div>
-      </div>
+    </div>
+    <div class="mb-4 mt-4 d-flex align-content-center justify-content-center">
+      <input type="file" id="image" [hidden]="true" accept="image/*" (change)="onFileSelected($event)" />
+      <label for="image" class="button-primary"><i class="bi bi-paperclip" style="font-size: 1.4rem;">Update the image</i></label>
+    </div>
+    <div *ngIf="imageExists" class="d-flex justify-content-center align-content-center mt-4 mb-4">
+        <div class="chat-image d-flex attachment" style="width: 25%;" >
+          <div  class=" d-flex" style="width: 100%; position: relative;">
+            <img [src]="imagePreview" style="width: 100%; max-height: 200px;" alt="selected image">
+            <button type="button" class="btn" style="position: absolute; right: -30px; top: -30px;" (click)="removeSelectedFile()"><i class="bi bi-x-circle-fill text-danger" style="font-size: 2rem;"></i></button>
+          </div>
+        </div>
+    </div>
+
+    
     <!-- Update Buttons -->
     <div class="d-flex justify-content-between">
       <button type="button" [routerLink]="['/activity',activityDetails.id]" class="button-secondary">Back</button>

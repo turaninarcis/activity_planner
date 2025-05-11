@@ -39,6 +39,13 @@ export class ActivityService {
     return this.http.get(`${this.apiUrl}/${activityId}/joined`);
   }
 
+  public updateActivityImage(activityID:string|null, file:File){
+    const formData = new FormData();
+    formData.append("image",file);
+
+    return this.http.put(`${this.apiUrl}/${activityID}/image`, formData);
+  }
+
   public generateNewInviteToken(activityId:string|null):Observable<any>{
     return this.http.post(`${this.apiUrl}/${activityId}/newtoken`,{})
   }
