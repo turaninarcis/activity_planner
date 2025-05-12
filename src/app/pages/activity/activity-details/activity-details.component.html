@@ -1,16 +1,9 @@
-<div class="d-flex flex-column justify-content-end align-content-end activity-header">
-  <div class="d-flex align-content-end justify-content-end">
-    <button class="button-primary h-50" *ngIf="canModifyActivity()" routerLink="edit">Edit</button>
-  </div>
-
-  <div class="container mb-4">
-    <h1>
-      {{ activityDetails?.name === null ? "Loading..." : activityDetails.name }}
-    </h1>
-  </div>
-  
-  <div></div>
+<div class="d-flex justify-content-center align-content-center  activity-header">
+  <h1>
+    {{ activityDetails?.name === null ? "Loading..." : activityDetails.name }}
+  </h1>
 </div>
+
 <div class="d-flex justify-content-center align-content-center mt-3 mb-3">
   <img *ngIf="activityDetails?.imageUrl!==null" class="activity-details-image" [src]="'http://localhost:8080/images/'+activityDetails.imageUrl" alt="">
 </div>
@@ -34,14 +27,20 @@
 </div>
 
 <!-- Edit Button -->
-<div class="container d-flex justify-content-between">
-  <button class="btn" [ngClass]="{'btn-success': !getUserConfirmation(), 'background-danger':getUserConfirmation()}" (click)="changeUserConfirmation()">
-    {{getUserConfirmation()===false ? "Confirm" : "Unconfirm"}}
-  </button>
-  <button class="button-outline-primary" (click)="openCopyTokenModal()">
+<div class="d-flex justify-content-between">
+  <button class="button-outline-danger" (click)="openLeaveActivityModal()"  >Leave</button>
+
+  <button class="button-primary h-50" *ngIf="canModifyActivity()" routerLink="edit">Edit</button>
+  <div *ngIf="!canModifyActivity()"></div>
+  <button class="button-primary" (click)="openCopyTokenModal()">
     Copy Token
   </button>
-  <button class="button-outline-danger" (click)="openLeaveActivityModal()"  >Leave</button>
+</div>
+<div class="d-flex justify-content-between mt-5">
+    <h2>Attendance</h2>
+    <button [ngClass]="{'button-success': !getUserConfirmation(), 'button-danger':getUserConfirmation()}" (click)="changeUserConfirmation()">
+    {{getUserConfirmation()===false ? "Confirm" : "Unconfirm"}}
+  </button>
 </div>
 <hr>
 
@@ -51,7 +50,7 @@
   <button
     *ngIf="canModifyActivity()"
     type="button"
-    class="btn background-secondary"
+    class="button-outline-primary"
     (click)="openCreateTaskModal()">
     Create Task
   </button>

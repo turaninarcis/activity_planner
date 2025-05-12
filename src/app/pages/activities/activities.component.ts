@@ -47,8 +47,10 @@ export class ActivitiesComponent implements OnInit{
       });
     }
   }
+
   closeModal() {
     const modalElement = document.getElementById('joinGroupModal');
+
     if (modalElement) {
       const modalInstance = Modal.getInstance(modalElement) || new Modal(modalElement);
       modalInstance.hide();

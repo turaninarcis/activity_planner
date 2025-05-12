@@ -1,9 +1,11 @@
 <app-navbar></app-navbar>
 <div class="container">
+     <div class="d-flex align-content-center justify-content-center">
+      <h1>Groups</h1>
+    </div>
     <div class="text-center my-4">
-        <button class="button-secondary mx-2" routerLink="/create-group">Create</button>
-
-        <button class="button-secondary mx-2" data-bs-toggle="modal" data-bs-target="#joinGroupModal">
+        <button class="button-secondary mx-2 cta-button" routerLink="/create-group">Create</button>
+        <button class="button-secondary mx-2 cta-button" data-bs-toggle="modal" data-bs-target="#joinGroupModal">
           Join
         </button>
       </div>
@@ -47,8 +49,11 @@
           </div>
         </div>
       </div>
-    <app-groups-card *ngFor="let group of groups" 
-     [name]="group.name"
-     [id]="group.id">
-    </app-groups-card>
+    <div class="groups-grid w-100">
+        <app-groups-card *ngFor="let group of groups" 
+          [name]="group.name"
+          [id]="group.id">
+        </app-groups-card>
+    </div>
+
 </div>

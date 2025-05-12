@@ -1,9 +1,12 @@
+
 <div class="calendar background-details">
   <div class="header">
     <button class="button-secondary calendar-button" (click)="changeMonth(-1)">
         <span>←</span>
     </button>
-    <div class="month-year">{{ monthYear }}</div>
+    <div class="month-year-container">
+      <div class="month-year text-center">{{ monthYear }}</div>
+    </div>
     <button class="button-secondary calendar-button" (click)="changeMonth(1)">
         <span>→</span>
     </button>
@@ -35,9 +38,11 @@
 <div class="calendar-modal-backdrop" *ngIf="showModal" (click)="closeModal()"></div>
 
 <div class="calendar-modal-container background-details" *ngIf="showModal">
+  <div class="d-flex justify-content-end align-content-end">
+    <button class="calendar-modal-close-btn" (click)="closeModal()">×</button>
+  </div>
   <div class="calendar-modal-header">
     <h3>Activities on {{ selectedDay }} {{ monthYear }}</h3>
-    <button class="calendar-modal-close-btn" (click)="closeModal()">×</button>
   </div>
   <div class="calendar-modal-body">
     <div *ngIf="activitiesForSelectedDay.length === 0">
@@ -45,9 +50,7 @@
     </div>
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let act of activitiesForSelectedDay">
-        <strong class="text-wrap">{{ act.name }}</strong><br />
-        <small>{{ act.startDate | date: 'HH:mm' }}</small><br />
-        <p>{{ act.description }}</p>
+        <strong class="text-wrap" style="font-size: 1.4rem;">{{ act.name }} - {{ act.startDate | date: 'HH:mm' }}</strong><br />
       </li>
     </ul>
   </div>

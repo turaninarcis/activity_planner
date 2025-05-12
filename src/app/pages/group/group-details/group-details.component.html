@@ -1,11 +1,10 @@
 <div class="container w-100 mb-4 d-flex flex-column align-content-center justify-content-center">
     <div class="d-flex justify-content-between">
       <div></div>
-      <h1 class="text-center mb-4">
+      <h1 class="text-center mb-4 group-name">
         {{ groupDetails?.name === null ? "Loading..." : groupDetails.name }}
       </h1>
-      <button *ngIf="canModifyGroup()" class="button-primary h-50" routerLink="edit">Edit</button>
-      <div *ngIf="!canModifyGroup()"></div>
+      <div></div>
     </div>
 
  
@@ -28,10 +27,14 @@
  
       </div>
     <div class="d-flex align-content-center justify-content-between">
+      <button (click)="openLeaveGroupModal()" class="button-outline-danger"> Leave </button>
+
+      <button *ngIf="canModifyGroup()" class="button-primary h-50" routerLink="edit">Edit</button>
+      <div *ngIf="!canModifyGroup()"></div>
+
       <button class="button-primary" (click)="openCopyTokenModal()">
         Get Token
       </button>
-      <button (click)="openLeaveGroupModal()" class="button-outline-danger"> Leave </button>
     </div>
     <!-- Members Section -->
 

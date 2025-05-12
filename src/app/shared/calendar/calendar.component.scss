@@ -1,7 +1,7 @@
 .calendar {
   width: 100%;
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 5px;
   border-radius: 10px;
   font-family: Segoe UI, sans-serif;
@@ -11,6 +11,7 @@
     padding: 10px;
     height: 4rem;
     width: 4rem;
+    margin: 0px;
     text-align: center;
     font-size: 4rem;
     display: flex;
@@ -19,23 +20,39 @@
     align-items: center;
 }
 
+
 .calendar span{
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 64px;
     width: 64px;
     position: absolute;
-    top: -20px;
+    top: -9px;
     left: 0;
+}
+
+.month-year{
+  font-size: 2.4rem;
+}
+
+.month-year-container{
+  display: flex;
+  width: 50%;
+  margin: 0px;
+  justify-content: center;
+  align-items: center;
 }
 
 .header {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding-top: 1px;
+  margin-bottom: 10px;
   font-size: 20px;
   font-weight: 500;
-
 }
 
 .weekdays {
@@ -48,7 +65,6 @@
 
 .weekday {
   padding: 8px 0;
-  border-bottom: 1px solid #ddd;
 }
 
 .days {
@@ -85,8 +101,8 @@
 
 .day-number {
   align-self: flex-end;
-  font-size: 12px;
-  margin-bottom: 4px;
+  margin-right: 5px;
+  font-size: 0.8rem;
 }
 
 .today {
@@ -125,6 +141,7 @@
 
 .empty {
   border: 1px solid transparent;
+  
 }
 
 
@@ -155,7 +172,7 @@
 
 .calendar-modal-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -177,4 +194,24 @@
   word-break: break-word;
   overflow-wrap: anywhere; /* optional fallback for better support */
   max-width: 100%;
+}
+
+
+@media (max-width:400px) {
+  .month-year{
+    font-size: 1.8rem;
+  }
+
+  .calendar-button{
+    padding: 5px;
+    height: 3rem;
+    width: 3rem;
+    font-size: 3rem;
+}
+
+
+.calendar span{
+    height: 50px;
+    width: 50px;
+}
 }

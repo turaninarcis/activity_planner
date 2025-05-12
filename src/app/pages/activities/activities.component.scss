@@ -3,3 +3,19 @@
     grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
     gap:1rem;
 }
+.container{
+    padding: 20px 70px; 
+}
+.cta-button{
+    padding: 10px 20px;
+    font-size: 1.2rem;
+}
+h1{
+    font-size: 3rem;
+}
+
+@media (max-width:400px) {
+    .container{
+        padding: 20px 10px;
+    }
+}

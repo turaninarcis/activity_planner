@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { ActivityService } from '../../services/activities.service';
 import { CalendarComponent } from '../../shared/calendar/calendar.component';
+import { FeatureCardComponent } from '../../shared/feature-card/feature-card.component';
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent, CalendarComponent],
+  imports: [NavbarComponent, CalendarComponent, FeatureCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

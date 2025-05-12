@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg background-primary w-100 h-25">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg background-primary w-100 position-absolute" style="font-size: 2.5rem;" >
+  <div class="container-fluid d-flex justify-content-between align-items-center">
     <!-- Toggler button for collapsed navbar -->
     <button class="navbar-toggler"
             type="button"
@@ -10,20 +10,21 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Brand -->
-    <a class="navbar-brand position-absolute top-0 start-50 translate-middle-x d-lg-none mt-2" routerLink="/home">
+      <!-- Center: Brand (on small screens) -->
+  <div class="d-lg-none mx-auto text-center d-flex">
+    <a class="navbar-brand" routerLink="/home">
       Activity planner
     </a>
-    
-    <!-- Left-aligned brand for large screens -->
-    <a class="navbar-brand d-none d-lg-block" routerLink="/home">
-      Activity planner
-    </a>
+  </div>
 
-    <!-- Always-top-right Dark Mode Button -->
-    <div class="ms-auto d-lg-none">
-      <button class="button-outline-secondary" (click)="toggleDarkMode()">🌓</button>
-    </div>
+  <!-- Right: Dark mode button (on small screens) -->
+
+  <button class="button-outline-secondary d-lg-none theme-mode-button" (click)="toggleDarkMode()">🌓</button>
+
+  <!-- Large screen brand -->
+  <a class="navbar-brand d-none d-lg-block me-auto" routerLink="/home">
+    Activity planner
+  </a>
 
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent" #navbarCollapse>
@@ -58,7 +59,7 @@
       <div class="d-none d-lg-flex justify-content-center align-items-center ms-auto gap-2">
         <button routerLink="/user" class="btn">{{userDetails?.username}}</button>
         <button class="btn" (click)="openLogoutModal()">Logout</button>
-        <button class="button-outline-secondary" (click)="toggleDarkMode()">🌓</button>
+        <button class="button-outline-secondary theme-mode-button"  (click)="toggleDarkMode()">🌓</button>
       </div>
     </div>
   </div>

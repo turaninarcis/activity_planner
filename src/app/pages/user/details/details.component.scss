@@ -1,0 +1,11 @@
+.user-details-buttons{
+    font-size: 1.5rem;
+}
+.details-container{
+    font-size: 1.4rem;
+}
+@media (max-width:560px) {
+    .details-container{
+        font-size: 1rem;
+    }
+}

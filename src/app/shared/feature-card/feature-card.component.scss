@@ -1,0 +1,44 @@
+.feature-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    transition: box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.feature-card-body {
+    font-size: 1rem;
+    margin-bottom: 16px;
+}
+
+.feature-card-footer {
+    margin-top: auto;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 16px;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    filter: brightness(85%);
+}

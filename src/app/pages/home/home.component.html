@@ -1,8 +1,23 @@
 <app-navbar/>
-<div class="d-flex flex-column justify-content-center align-items-center">
-  <h1>Welcome to Activity Planner</h1>
-  <p class="lead">Organize your activities, manage groups, and stay on top of your schedule.</p>
+<div class="home-container">
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <h1 class="text-center">Welcome to Activity Planner</h1>
+    <p class="lead text-center">Organize your activities, manage groups, and stay on top of your schedule.</p>
+  </div>
+
+  <app-calendar [activities]="activities"></app-calendar>
+
+  <div class="d-flex flex-wrap align-items-stretch justify-content-center gap-3">
+    <app-feature-card [cardBody]="'Create or join activities so you and your friends can organize better with task creation, assignments and more!'"
+                      [cardHeader]="'Create or join activities'"
+                      [callToActionRoute]="'/activities'"
+                      />
+
+    <app-feature-card [cardBody]="'Create or join groups so you and your friends can talk through the chat!'"
+                      [cardHeader]="'Create or join a group'"
+                      [callToActionRoute]="'/groups'"
+                      />
+  </div>
 </div>
 
-<app-calendar [activities]="activities"></app-calendar>
 
