@@ -71,7 +71,7 @@ export class UpdateComponent implements OnInit{
       next: (res) => {
         this.backendErrors = [];
         
-        this.router.navigate(['/users']);
+        this.router.navigate(['/user']);
       },
       error: (err) => {
         console.error('Update error:', err);

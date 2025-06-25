@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { DetailsPayload } from '../../../../Models/details-payload.model';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { TokenService } from '../../../core/auth/token.service';
 @Component({
   selector: 'app-details',
   imports: [CommonModule, RouterModule],
@@ -10,7 +11,11 @@ import { RouterModule } from '@angular/router';
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent implements OnInit {
-  constructor(private userService: UserService){}
+  constructor(
+    private userService: UserService,
+    private tokenService: TokenService,
+    private router: Router
+  ){}
   userDetails: DetailsPayload | undefined;
 
   ngOnInit(): void {
@@ -22,5 +27,10 @@ export class DetailsComponent implements OnInit {
       }
     })
   }
-  
+  deleteAccount(){
+    this.userService.deleteUser().subscribe(data=>{
+      this.tokenService.clearToken();
+      this.router.navigate(["/login"]);
+    })
+  }
 }

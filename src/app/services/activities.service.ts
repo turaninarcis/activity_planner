@@ -18,17 +18,13 @@ export class ActivityService {
 
 
   public getJoinedActivities():Observable<any>{
-      //console.log('Hit get joined activities');
         return this.http.get<any>(`${this.apiUrl}`).pipe(
                 tap((respone) =>{
                   this.activitiesPayloadSubject.next(respone);
                 })
               );;
   }
-
-
   public getActivityDetails(id:string|null):Observable<any>{
-    //console.log('Hit the activitty details');
     this.activity = this.http.get<any>(`${this.apiUrl}/${id}`);
     return this.activity;
   }
@@ -38,18 +34,15 @@ export class ActivityService {
   public getIsUserPartOfActivity(activityId:string):Observable<any>{
     return this.http.get(`${this.apiUrl}/${activityId}/joined`);
   }
-
   public updateActivityImage(activityID:string|null, file:File){
     const formData = new FormData();
     formData.append("image",file);
 
     return this.http.put(`${this.apiUrl}/${activityID}/image`, formData);
   }
-
   public generateNewInviteToken(activityId:string|null):Observable<any>{
     return this.http.post(`${this.apiUrl}/${activityId}/newtoken`,{})
   }
-
   public updateActivity(activityId:string|null, payload):Observable<any>{
     return this.http.patch(`${this.apiUrl}/${activityId}`,payload)
   }
@@ -75,7 +68,6 @@ export class ActivityService {
   public changeConfirmation(activityId:string|null){
     return this.http.patch(`${this.apiUrl}/${activityId}/confirmation`,{});
   }
-
   public createTask(activityId:string | null, payload:any):Observable<any>{
     return this.http.post(`${this.apiUrl}/${activityId}/tasks`,payload);
   }
@@ -85,7 +77,6 @@ export class ActivityService {
   public deleteTask( activityId:string |null, payload:any){
     return this.http.delete(`${this.apiUrl}/${activityId}/tasks/${payload.id}`);
   }
-
   public createAssign( activityId:string | null, taskId){
     return this.http.post(`${this.apiUrl}/${activityId}/tasks/${taskId}/assignment`,{});
   }

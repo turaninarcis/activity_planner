@@ -28,5 +28,8 @@ export class UserService {
           this.userDetailsSubject.next(respone);
         })
       );
-}
+  }
+  public deleteUser():Observable<any>{
+    return this.http.delete(`${this.apiUrl}`)
+  }
 }

@@ -145,7 +145,7 @@
 
         <!-- Kick button -->
         <div *ngIf="canModifyActivity() && getLoggedUser() !== member.username">
-          <button class="button-" (click)="openKickModal(member)">
+          <button class="button-danger" (click)="openKickModal(member)">
             Kick
           </button>
         </div>
@@ -208,7 +208,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        Are you sure you want to remove <strong>{{ selectedMember?.username }}</strong> from this activity?
+        Are you sure you want to remove <strong>{{ selectedMember?.username }}</strong> from this activity? They will no longer be able to interact with the activity.
       </div>
       <div class="modal-footer">
         <button type="button" class="button-secondary" data-bs-dismiss="modal">

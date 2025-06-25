@@ -52,19 +52,17 @@ export class ActivityUpdateComponent {
   updateActivity() {
     this.activityService.updateActivity(this.id,this.activityDetails).subscribe({
       next:(data)=>{
-        //console.log(data);
+        if(this.image){
+          this.activityService.updateActivityImage(this.id, this.image).subscribe({
+            next:(data)=>{
+              this.activityService.getJoinedActivities().subscribe();
+              this.router.navigate([`/activity/${this.id}`]);
+            }
+            });
+        }
+        else this.router.navigate([`/activity/${this.id}`]);
       }
     });
-
-    if(this.image){
-      this.activityService.updateActivityImage(this.id, this.image).subscribe({
-        next:(data)=>{
-          this.activityService.getJoinedActivities().subscribe();
-          this.router.navigate([`/activity/${this.id}`]);
-        }
-      });
-    }
-    else this.router.navigate([`/activity/${this.id}`]);
   }
 
   deleteActivity() {
@@ -113,8 +111,6 @@ export class ActivityUpdateComponent {
 
     (event.target as HTMLInputElement).files=null;
   }
-
-
 
   removeSelectedFile(){
     this.imageExists = false;
